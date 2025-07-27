@@ -57,7 +57,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'api',
     'corsheaders',
-    'api.apps.ApiConfig',
       # Assuming you have an app named 'api'
 ]
 
