@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'api',
     'corsheaders',
+    
       # Assuming you have an app named 'api'
 ]
 
