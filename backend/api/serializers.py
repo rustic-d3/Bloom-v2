@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from .models import Note, CustomUser, Teacher, Child, ClassRoom, Admin
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 User = get_user_model()
 class UserSerializer(serializers.ModelSerializer):
@@ -15,6 +16,12 @@ class UserSerializer(serializers.ModelSerializer):
         user = User.objects.create_user(**validated_data)
         return user
 
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+        token['role'] = user.role
+        return token
 
 class NoteSerializer(serializers.ModelSerializer):
 

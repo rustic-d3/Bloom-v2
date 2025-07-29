@@ -10,6 +10,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
+import AdminProtected from "./components/AdminProtected";
 import api from "./api";
 
 function Logout() {
@@ -30,13 +31,12 @@ function App() {
           <Route
             path="/"
             element={
-              <ProtectedRoute>
+              <AdminProtected>
                 <Dashboard />
-              </ProtectedRoute>
+              </AdminProtected>
             }
           />
           <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="*" element={<NotFound />} />
 
