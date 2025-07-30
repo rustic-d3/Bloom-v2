@@ -7,6 +7,10 @@ import "../styles/Form.css"; // Assuming you have a CSS file for styling
 function Form({ route, method }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [role, setRole] = useState("teacher");
   const [Loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -25,12 +29,29 @@ function Form({ route, method }) {
         localStorage.setItem(REFRESH_TOKEN, res.data.refresh);
         navigate("/");
       } else {
-        console.log(username, password, role);
-        res = await api.post(route, { username, password, role });
-        alert("Registration successful! You can now log in.");
-        navigate("/login");
+        if (role === "parent") {
+          console.log(
+            username,
+            password,
+            role,
+            firstName,
+            lastName,
+            email,
+            phone
+          );
+          res = await api.post(route, {
+            username,
+            password,
+            role,
+            firstName,
+            lastName,
+            email,
+            phone,
+          });
+          alert("Registration successful! You can now log in.");
+          navigate("/login");
+        }
       }
-
     } catch (error) {
       alert("An error occurred.");
     } finally {
@@ -49,6 +70,7 @@ function Form({ route, method }) {
         onChange={(e) => setUsername(e.target.value)}
         placeholder="enter your username..."
       />
+
       <input
         type="password"
         className="form-input"
@@ -57,11 +79,52 @@ function Form({ route, method }) {
         placeholder="enter your password..."
       />
       {method === "Register" && (
-        <select  className = "form-select" id="role" name="role" value = {role} onChange={(e) => setRole(e.target.value)}>
-          <option value="teacher">teacher</option>
-          <option value="child">child</option>
-          <option value="admin">admin</option>
-        </select>
+        <div>
+          <input
+            type="email"
+            className="form-input"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="enter email..."
+          />
+          <select
+            className="form-select"
+            id="role"
+            name="role"
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+          >
+            <option value="teacher">teacher</option>
+            <option value="parent">parent</option>
+            <option value="admin">admin</option>
+          </select>
+        </div>
+      )}
+
+      {role === "parent" && (
+        <div>
+          <input
+            type="text"
+            className="form-input"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            placeholder="enter first name..."
+          />
+          <input
+            type="text"
+            className="form-input"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            placeholder="enter last name..."
+          />
+          <input
+            type="tel"
+            className="form-input"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            placeholder="enter parent phone..."
+          />
+        </div>
       )}
 
       <button className="form-button" type="submit">

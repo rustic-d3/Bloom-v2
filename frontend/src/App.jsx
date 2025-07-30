@@ -3,12 +3,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Dashboard from "./components/Dashboard";
 import NotFound from "./components/NotFound";
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminProtected from "./components/AdminProtected";
 import api from "./api";
@@ -37,12 +32,16 @@ function App() {
             }
           />
           <Route path="/login" element={<Login />} />
+          <Route
+            path="/register"
+            element={
+              <AdminProtected>
+                <Register />
+              </AdminProtected>
+            }
+          />
           <Route path="/logout" element={<Logout />} />
           <Route path="*" element={<NotFound />} />
-
-          
-
-          
         </Routes>
       </BrowserRouter>
     </>
