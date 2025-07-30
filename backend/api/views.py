@@ -4,8 +4,8 @@ from rest_framework import generics
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.contrib.auth import get_user_model
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from .serializers import UserSerializer, NoteSerializer, ClassRoomSerializer, CustomTokenObtainPairSerializer, TeacherSerializer, ParentSerializer
-from .models import Note, ClassRoom, Teacher, Parent
+from .serializers import UserSerializer, NoteSerializer, ClassRoomSerializer, CustomTokenObtainPairSerializer, TeacherSerializer, ParentSerializer, ChildSerializer
+from .models import Note, ClassRoom, Teacher, Parent, Child
 from .permissions import IsAdminRole
 
 
@@ -45,6 +45,13 @@ class CreateNoteView(generics.ListCreateAPIView):
         user = self.request.user
         return Note.objects.filter(author = user)
     
+class CreateChildView(generics.CreateAPIView):
+    querryset = Child.objects.all()
+    serializer_class = ChildSerializer
+    permission_classes = [AllowAny]
+
+
+
 
 class CreateClassRoomview(generics.ListCreateAPIView):
     serializer_class = ClassRoomSerializer
