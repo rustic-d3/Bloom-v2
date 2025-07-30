@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from api.views import CreateUserView, TokenObtainPairView, ListUserView, TeacherListView, ParentListView, CreateChildView
+from api.views import CreateUserView, TokenObtainPairView, ListUserView, TeacherListView, ParentListView, CreateChildView, Childview
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 
@@ -27,6 +27,7 @@ urlpatterns = [
     path('api/user/list/', ListUserView.as_view(), name="list_users"),
     path('api/user/teachers/list/', TeacherListView.as_view(), name="list_teachers"),
     path('api/user/parents/list/', ParentListView.as_view(), name="list_parents"),
+    path('api/children/list/', Childview.as_view(), name= 'get_children'),
     path('api/token/', TokenObtainPairView.as_view(), name="get_token"),
     path('api/token/refresh/', TokenRefreshView.as_view(), name="refresh"),
     path('api-auth/', include("rest_framework.urls")),

@@ -10,13 +10,11 @@ from .permissions import IsAdminRole
 
 
 User = get_user_model()
-admin = User.objects.filter(role='admin').first()
-print(admin.username if admin else "No admin user found")
 
 class CreateUserView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [IsAdminRole]  
+    permission_classes = [AllowAny]  
 
 class ListUserView(generics.ListAPIView):
     queryset = User.objects.all()
@@ -48,7 +46,12 @@ class CreateNoteView(generics.ListCreateAPIView):
 class CreateChildView(generics.CreateAPIView):
     querryset = Child.objects.all()
     serializer_class = ChildSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAdminRole]
+
+class Childview(generics.ListAPIView):
+    queryset = Child.objects.all()
+    serializer_class = ChildSerializer
+    permission_classes = [IsAdminRole]
 
 
 

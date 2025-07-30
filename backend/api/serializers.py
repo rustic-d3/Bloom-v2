@@ -10,9 +10,10 @@ class UserSerializer(serializers.ModelSerializer):
     lastName = serializers.CharField(required=False)
     email = serializers.EmailField(required=False)
     phone = serializers.CharField(required=False)
+    name = serializers.CharField(required=False)
     class Meta:
         model = User
-        fields = ["id", "username", "password", "role", "firstName", "lastName", "email", "phone"]
+        fields = ["id", "username", "password", "role", "firstName", "lastName", "email", "phone", "name"]
         extra_kwargs = {
             "password": {"write_only": True}
         }
@@ -28,7 +29,7 @@ class UserSerializer(serializers.ModelSerializer):
         
         role = validated_data.get('role')
         if role == 'teacher':
-            Teacher.objects.create(user=user, name=validated_data.get('username'))
+            Teacher.objects.create(user=user, name=validated_data.get('name'))
         if role == 'parent':
             Parent.objects.create(
                 firstName=validated_data.get('firstName'),
