@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminProtected from "./components/AdminProtected";
 import api from "./api";
+import ChildrenForm from "./components/ChildrenForm";
 
 function Logout() {
   localStorage.clear();
@@ -37,6 +38,14 @@ function App() {
             element={
               <AdminProtected>
                 <Register />
+              </AdminProtected>
+            }
+          />
+          <Route
+            path="/addChild"
+            element={
+              <AdminProtected>
+                <ChildrenForm route ={'/api/user/register/child/'}/>
               </AdminProtected>
             }
           />

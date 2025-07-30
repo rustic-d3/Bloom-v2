@@ -13,8 +13,9 @@ function Dashboard() {
     return (
     <>
         <div className="home">Admin dashboard</div>
-        <UserList route = {'api/user/list/'}></UserList>
+        <UserList route = {'api/children/list/'}></UserList>
         <button onClick={()=>navigate('/register')}>Register user</button>
+        <button onClick={()=>navigate('/addChild')}>Add child</button>
     </>
         
     )

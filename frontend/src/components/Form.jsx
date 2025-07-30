@@ -160,37 +160,10 @@ function Form({ route, method }) {
             <option value="parent">parent</option>
             <option value="admin">admin</option>
           </select>
+          {renderFields(role)}
         </>
 
       )}
-      {renderFields(role)}
-
-      {/* {role === "parent" && (
-        <div>
-          <input
-            type="text"
-            className="form-input"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            placeholder="enter first name..."
-          />
-          <input
-            type="text"
-            className="form-input"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            placeholder="enter last name..."
-          />
-          <input
-            type="tel"
-            className="form-input"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            placeholder="enter parent phone..."
-          />
-        </div>
-      )} */}
-
       <button className="form-button" type="submit">
         {method_name}
       </button>
