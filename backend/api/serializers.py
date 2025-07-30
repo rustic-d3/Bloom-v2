@@ -74,10 +74,8 @@ class TeacherSerializer(serializers.ModelSerializer):
 class ChildSerializer(serializers.ModelSerializer):
     class Meta:
         model = Child
-        fields = ["id", "user", "name", "age", "personal_id"]
-        extra_kwargs = {
-            "user": {"read_only": True}
-        }
+        fields = ["id", "name", "age", "personal_id", "parent_name"]
+        
 
 class ClassRoomSerializer(serializers.ModelSerializer):
     class Meta:
