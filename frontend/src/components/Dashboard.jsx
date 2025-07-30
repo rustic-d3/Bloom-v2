@@ -2,19 +2,19 @@ import React from "react";
 import { ACCESS_TOKEN } from "../constants";
 import { jwtDecode } from "jwt-decode";
 import Register from "./Register";
+import UserList from "./UsersLIst";
+import { useNavigate } from "react-router-dom";
 
 
 function Dashboard() {
 
-    const token = localStorage.getItem(ACCESS_TOKEN);
-    if (!token) {
-        return <div>Please log in to access the dashboard.</div>;
-    }
+    const navigate = useNavigate();
 
     return (
     <>
-        <div className="home">dashboard</div>
-        <Register />
+        <div className="home">Admin dashboard</div>
+        <UserList route = {'api/user/parents/list/'}></UserList>
+        <button onClick={()=>navigate('/register')}>Register user</button>
     </>
         
     )

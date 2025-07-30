@@ -1,20 +1,43 @@
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
-from .models import Note, CustomUser, Teacher, Child, ClassRoom, Admin
+from .models import Note, CustomUser, Teacher, Child, ClassRoom, Admin, Parent
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 User = get_user_model()
 class UserSerializer(serializers.ModelSerializer):
+    firstName = serializers.CharField(required=False)
+    lastName = serializers.CharField(required=False)
+    email = serializers.EmailField(required=False)
+    phone = serializers.CharField(required=False)
     class Meta:
         model = User
-        fields = ["id", "username", "password", "role"]
+        fields = ["id", "username", "password", "role", "firstName", "lastName", "email", "phone"]
         extra_kwargs = {
             "password": {"write_only": True}
         }
     def create(self, validated_data):
-        user = User.objects.create_user(**validated_data)
+        user_data = {
+        'username': validated_data.get('username'),
+        'password': validated_data.get('password'),
+        'role': validated_data.get('role'),
+        'email': validated_data.get('email')
+    }
+        user = User.objects.create_user(**user_data)
+        
+        
+        role = validated_data.get('role')
+        if role == 'teacher':
+            Teacher.objects.create(user=user, name=validated_data.get('username'))
+        if role == 'parent':
+            Parent.objects.create(
+                firstName=validated_data.get('firstName'),
+                lastName=validated_data.get('lastName'),
+                phone= validated_data.get('phone'),
+                user=user)  
+
         return user
+    
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
@@ -32,6 +55,13 @@ class NoteSerializer(serializers.ModelSerializer):
             "author": {"read_only": True}
         }
 
+class ParentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Parent
+        fields = ["id", "firstName", "lastName", "phone"]
+        extra_kwargs = {
+            "phone": {"required": True, "allow_blank": False}
+        }
 
 class TeacherSerializer(serializers.ModelSerializer):
     class Meta:
