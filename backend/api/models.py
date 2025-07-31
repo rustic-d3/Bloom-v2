@@ -56,7 +56,7 @@ class ClassRoom(models.Model):
     title = models.CharField(max_length=100)
     type = models.CharField(max_length=50)
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, related_name='classes')
-    children = models.ManyToManyField(Child, related_name='classes', null=True, blank=True)
+    children = models.ManyToManyField(Child, related_name='myClass', null=True, blank=True)
     start_date = models.DateField()
     end_date = models.DateField()
     start_time = models.TimeField()

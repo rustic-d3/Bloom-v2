@@ -1,3 +1,4 @@
+import datetime
 from django.shortcuts import render
 
 from rest_framework import generics
@@ -10,11 +11,12 @@ from .permissions import IsAdminRole
 
 
 User = get_user_model()
+print(datetime.date.today().strftime('%Y-%m-%d'))
 
 class CreateUserView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [AllowAny]  
+    permission_classes = [IsAdminRole]  
 
 class ListUserView(generics.ListAPIView):
     queryset = User.objects.all()
@@ -29,19 +31,11 @@ class ParentListView(generics.ListAPIView):
 class TeacherListView(generics.ListAPIView):
     queryset = Teacher.objects.all()
     serializer_class = TeacherSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAdminRole]
 
 class TokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
 
-
-class CreateNoteView(generics.ListCreateAPIView):
-    serializer_class = NoteSerializer
-    permission_classes = [IsAuthenticated]
-    
-    def get_queryset(self):
-        user = self.request.user
-        return Note.objects.filter(author = user)
     
 class CreateChildView(generics.CreateAPIView):
     querryset = Child.objects.all()
@@ -49,35 +43,22 @@ class CreateChildView(generics.CreateAPIView):
     permission_classes = [IsAdminRole]
 
 class Childview(generics.ListAPIView):
-    queryset = Child.objects.all()
+    querryset = Child.objects.all()
     serializer_class = ChildSerializer
     permission_classes = [IsAdminRole]
 
 
 
-
 class CreateClassRoomview(generics.ListCreateAPIView):
+    queryset = ClassRoom.objects.all()
     serializer_class = ClassRoomSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
-    def get_queryset(self):
-        user = self.request.user
-        teacher = user.teacher if hasattr(user, 'teacher') else None
-        return ClassRoom.objects.filter(teacher = teacher)
-    def perform_create(self, serializer):
-        user = self.request.user
-        teacher = user.teacher if hasattr(user, 'teacher') else None
-
-        if serializer.is_valid():
-            serializer.save(teacher=teacher)
-        else:
-            print(serializer.errors)
-
-class DeleteClassRoomView(generics.DestroyAPIView):
+class ClassRoomView(generics.ListAPIView):
+    queryset = ClassRoom.objects.all()
     serializer_class = ClassRoomSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
-    def get_queryset(self):
-        user = self.request.user
-        teacher = user.teacher if hasattr(user, 'teacher') else None
-        return ClassRoom.objects.filter(teacher = teacher)
+    # def get_queryset(self):
+    #     ClassRoom.objects.filter(end_time__lt = datetime.date.today()).delete()
+    #     return ClassRoom.objects.all()

@@ -82,10 +82,7 @@ class ClassRoomSerializer(serializers.ModelSerializer):
     class Meta:
         model = ClassRoom
         fields = ["id", "title", "type", "teacher", "children", "start_date", "end_date", "start_time", "end_time"]
-        extra_kwargs = {
-            "teacher": {"read_only": True},
-            "children": {"required": False}
-        }
+        
 
 class AdminSerializer(serializers.ModelSerializer):
     class Meta:
