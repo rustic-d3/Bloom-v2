@@ -8,6 +8,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import AdminProtected from "./components/AdminProtected";
 import api from "./api";
 import ChildrenForm from "./components/ChildrenForm";
+import ClassRoomForm from "./components/ClassRoomForm";
 
 function Logout() {
   localStorage.clear();
@@ -46,6 +47,14 @@ function App() {
             element={
               <AdminProtected>
                 <ChildrenForm route ={'/api/user/register/child/'}/>
+              </AdminProtected>
+            }
+          />
+          <Route
+            path="/createClassroom"
+            element={
+              <AdminProtected>
+                <ClassRoomForm route={"api/create/classrooms/"}/>
               </AdminProtected>
             }
           />
