@@ -3,7 +3,7 @@ from . import views
 
 
 urlpatterns = [
-    path('classrooms/', views.CreateClassRoomview.as_view(), name='create_classroom'),
-    path('classrooms/<int:pl>/', views.DeleteClassRoomView.as_view(), name='delete_classroom'),
+    path('create/classrooms/', views.CreateClassRoomview.as_view(), name='create_classroom'),
+    path('classrooms/', views.ClassRoomView.as_view(), name='view_classrooms'),
 
 ]
