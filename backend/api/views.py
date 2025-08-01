@@ -31,7 +31,7 @@ class ParentListView(generics.ListAPIView):
 class TeacherListView(generics.ListAPIView):
     queryset = Teacher.objects.all()
     serializer_class = TeacherSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAdminRole]
 
 class TokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
@@ -45,19 +45,21 @@ class CreateChildView(generics.CreateAPIView):
 class Childview(generics.ListAPIView):
     queryset = Child.objects.all()
     serializer_class = ChildSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAdminRole]
 
 
 
 class CreateClassRoomview(generics.ListCreateAPIView):
     queryset = ClassRoom.objects.all()
     serializer_class = ClassRoomSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAdminRole]
+    
+    
 
 class ClassRoomView(generics.ListAPIView):
     queryset = ClassRoom.objects.all()
     serializer_class = ClassRoomSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAdminRole]
 
     # def get_queryset(self):
     #     ClassRoom.objects.filter(end_time__lt = datetime.date.today()).delete()
