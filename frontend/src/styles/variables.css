@@ -1,0 +1,28 @@
+:root{
+
+    /* colors */
+
+    --clr-primary: #562F82;
+    --clr-secondary: #AA60C8;
+    --clr-secondary-light: #EABDE6;
+    --clr-light: #FFFFFF;
+    --clr-dark: #090040;
+
+    /* gradients */
+    --gradient-primary: linear-gradient(45deg, rgba(9, 0, 64, 1) 0%, rgba(170, 96, 200, 1) 31%, rgba(202, 142, 215, 1) 66%, rgba(234, 189, 230, 1) 100%);
+    --gradient-buttons: linear-gradient(90deg,rgba(9, 0, 64, 1) 0%, rgba(170, 96, 200, 1) 100%);
+    --gradient-containers-1: linear-gradient(180deg,rgba(86, 47, 130, 1) 0%, rgba(170, 96, 200, 1) 100%);
+    --gradient-containers-2: linear-gradient(0deg,rgba(86, 47, 130, 1) 0%, rgba(170, 96, 200, 1) 100%);
+
+    /* fonts */
+
+    --font-primary: 'Sansation', sans-serif;
+    --font-300: 300;
+    --font-400: 400;
+    --font-700: 700;
+
+
+
+
+
+}

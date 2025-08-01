@@ -1,5 +1,4 @@
 import React from "react";
-import Login from "./components/Login";
 import Register from "./components/Register";
 import Dashboard from "./components/Dashboard";
 import NotFound from "./components/NotFound";
@@ -9,6 +8,7 @@ import AdminProtected from "./components/AdminProtected";
 import api from "./api";
 import ChildrenForm from "./components/ChildrenForm";
 import ClassRoomForm from "./components/ClassRoomForm";
+import LoginPage from "./pages/LoginPage";
 
 function Logout() {
   localStorage.clear();
@@ -33,7 +33,7 @@ function App() {
               </AdminProtected>
             }
           />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route
             path="/register"
             element={
