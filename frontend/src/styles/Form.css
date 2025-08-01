@@ -24,6 +24,8 @@
 
 .logo-image {
   width: clamp(5rem, 15vw, 10rem); 
+  padding-bottom: 0.5em;
+
 }
 
 .form-input {
