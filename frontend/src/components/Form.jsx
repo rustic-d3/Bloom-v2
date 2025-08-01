@@ -113,9 +113,26 @@ function Form({ route, method }) {
           navigate("/login");
 
         }
+        if (role === "admin"){
+          console.log(
+            username,
+            password,
+            email,
+            role
+          )
+          res = await api.post(route, {
+            username,
+            password,
+            email,
+            role
+          })
+          navigate("/login");
+
+        }
       }
-    } catch (error) {
-      alert("An error occurred.");
+    } catch (err) {
+      console.error("Error creating classroom:", err.response?.data || err);
+      alert("An error occurred. Check console for details.");
     } finally {
       setLoading(false);
     }

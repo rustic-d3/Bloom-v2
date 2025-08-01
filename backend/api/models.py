@@ -24,7 +24,7 @@ class Note(models.Model):
 class Teacher(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
-    subject = models.CharField(max_length=100, null=True, blank=True)
+    
 
     def __str__(self):
         return self.name
@@ -54,6 +54,7 @@ class Parent(models.Model):
 
 class ClassRoom(models.Model):
     title = models.CharField(max_length=100)
+    subject = models.CharField(max_length=100, null=True)
     type = models.CharField(max_length=50)
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, related_name='classes')
     children = models.ManyToManyField(Child, related_name='myClass', null=True, blank=True)

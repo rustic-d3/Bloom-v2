@@ -23,7 +23,7 @@ class UserSerializer(serializers.ModelSerializer):
         'password': validated_data.get('password'),
         'role': validated_data.get('role'),
         'email': validated_data.get('email')
-    }
+        }
         user = User.objects.create_user(**user_data)
         
         
@@ -67,7 +67,7 @@ class ParentSerializer(serializers.ModelSerializer):
 class TeacherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Teacher
-        fields = ["id", "user", "name", "subject"]
+        fields = ["id", "user", "name"]
         extra_kwargs = {
             "user": {"read_only": True}
         }
@@ -81,7 +81,9 @@ class ChildSerializer(serializers.ModelSerializer):
 class ClassRoomSerializer(serializers.ModelSerializer):
     class Meta:
         model = ClassRoom
-        fields = ["id", "title", "type", "teacher", "children", "start_date", "end_date", "start_time", "end_time"]
+        fields = ["id", "title", "subject", "type", "teacher", "children", "start_date", "end_date", "start_time", "end_time"]
+        
+        
         
 
 class AdminSerializer(serializers.ModelSerializer):
