@@ -48,12 +48,13 @@ function Form({ route, method }) {
       case "teacher":
         return (
           <>
-            <input 
-            className="form-input"
-            type="text" 
-            value={name} 
-            onChange={(e)=> setName(e.target.value)}
-            placeholder="enter Instructor's name" />
+            <input
+              className="form-input"
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="enter Instructor's name"
+            />
           </>
         );
     }
@@ -95,39 +96,26 @@ function Form({ route, method }) {
           alert("Registration successful! You can now log in.");
           navigate("/login");
         }
-        if (role === "teacher"){
-          console.log(
-            username,
-            password,
-            email,
-            role,
-            name
-          )
+        if (role === "teacher") {
+          console.log(username, password, email, role, name);
           res = await api.post(route, {
             username,
             password,
             email,
             role,
-            name
-          })
+            name,
+          });
           navigate("/login");
-
         }
-        if (role === "admin"){
-          console.log(
-            username,
-            password,
-            email,
-            role
-          )
+        if (role === "admin") {
+          console.log(username, password, email, role);
           res = await api.post(route, {
             username,
             password,
             email,
-            role
-          })
+            role,
+          });
           navigate("/login");
-
         }
       }
     } catch (err) {
@@ -139,24 +127,39 @@ function Form({ route, method }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="form-container">
+    <div className="main-container">
+      <img className="logo-image" src="/bloom-logo.png" alt="asdg" />
+      <form onSubmit={handleSubmit} className="form-container">
       <h1>{method_name}</h1>
+      <div className="field">
+        <p className="label">username</p>
+        <div className="input-field">
+          <img className="icon" src="/images/user.png" alt="adsf" />
+          <input
+            type="text"
+            className="form-input"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="enter username..."
+          />
+        </div>
+      </div>
 
-      <input
-        type="text"
-        className="form-input"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        placeholder="enter username..."
-      />
+      <div className="field">
+        <p className="label">password</p>
 
-      <input
-        type="password"
-        className="form-input"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="enter password..."
-      />
+        <div className="input-field">
+          <img className="icon" src="/images/lock.png" alt="adsf" />
+          <input
+            type="password"
+            className="form-input"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="enter password..."
+          />
+        </div>
+      </div>
+
       {method === "Register" && (
         <>
           <input
@@ -179,12 +182,14 @@ function Form({ route, method }) {
           </select>
           {renderFields(role)}
         </>
-
       )}
-      <button className="form-button" type="submit">
+      <button className=" btn form-button" type="submit">
         {method_name}
       </button>
     </form>
+
+    </div>
+    
   );
 }
 

@@ -1,0 +1,36 @@
+@import "../styles/variables.css";
+
+.login-body {
+  background: var(--gradient-primary);
+  background-size: cover; /* Fill the screen */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.decorator-1 {
+  position: absolute;
+  top: 20px;
+  left: -50px;
+  width: 200px;
+  height: 200px;
+  background: url("/images/decorator-1.png") no-repeat center / contain;
+  z-index: 0; /* Behind content */
+  border: none;
+  outline: none;
+}
+.decorator-2 {
+  position: absolute;
+  bottom: 20px;
+  left: -40px;
+  width: 200px;
+  height: 200px;
+  background: url("/images/decorator-2.png") no-repeat center / contain;
+  z-index: 0;
+}
