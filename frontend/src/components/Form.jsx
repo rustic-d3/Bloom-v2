@@ -3,6 +3,7 @@ import api from "../api";
 import { useNavigate } from "react-router-dom";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 import "../styles/Form.css";
+import { jwtDecode } from "jwt-decode";
 // Assuming you have a CSS file for styling
 
 function Form({ route, method }) {
@@ -16,45 +17,72 @@ function Form({ route, method }) {
   const [role, setRole] = useState("teacher");
   const [Loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  
 
   function renderFields(role) {
     switch (role) {
       case "parent":
         return (
           <>
-            <input
-              type="text"
-              className="form-input"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              placeholder="enter first name..."
-            />
-            <input
-              type="text"
-              className="form-input"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              placeholder="enter last name..."
-            />
-            <input
-              type="tel"
-              className="form-input"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              placeholder="enter parent phone..."
-            />
+            <div className="field">
+              <p className="label">Parent's First Name</p>
+              <div className="input-field">
+                <img className="icon" src="/images/arrow-down.png" alt="" />
+                <input
+                  type="text"
+                  className="form-input"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  placeholder="enter first name..."
+                />
+              </div>
+            </div>
+
+            <div className="field">
+              <p className="label">Parent's Last Name</p>
+              <div className="input-field">
+                <img src="/images/arrow-down.png" alt="user" className="icon" />
+                <input
+                  type="text"
+                  className="form-input"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  placeholder="enter last name..."
+                />
+              </div>
+            </div>
+
+            <div className="field">
+              <p className="label">Parent's Phone Number</p>
+              <div className="input-field">
+                <img src="/images/phone-icon.png" alt="icon" className="icon" />
+                <input
+                  type="tel"
+                  className="form-input"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  placeholder="enter parent's phone..."
+                />
+              </div>
+            </div>
           </>
         );
       case "teacher":
         return (
           <>
-            <input
-              className="form-input"
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="enter Instructor's name"
-            />
+            <div className="field">
+              <p className="label">Instructor's Full Name</p>
+              <div className="input-field">
+                <img src="images/arrow-down.png" alt="icon" className="icon" />
+                <input
+                  className="form-input"
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="enter Instructor's name"
+                />
+              </div>
+            </div>
           </>
         );
     }
@@ -72,7 +100,19 @@ function Form({ route, method }) {
         res = await api.post(route, { username, password });
         localStorage.setItem(ACCESS_TOKEN, res.data.access);
         localStorage.setItem(REFRESH_TOKEN, res.data.refresh);
-        navigate("/");
+        const token = localStorage.getItem(ACCESS_TOKEN)
+        const role = jwtDecode(token).role
+        switch(role){
+          case "admin":
+            navigate('/');
+            break;
+          case "teacher":
+            navigate("/teacherDashboard")
+          break;
+          case "parent":
+            navigate("/parentDashboard")
+          break;
+        }
       } else {
         if (role === "parent") {
           console.log(
@@ -130,66 +170,79 @@ function Form({ route, method }) {
     <div className="main-container">
       <img className="logo-image" src="/bloom-logo.png" alt="asdg" />
       <form onSubmit={handleSubmit} className="form-container">
-      <h1>{method_name}</h1>
-      <div className="field">
-        <p className="label">username</p>
-        <div className="input-field">
-          <img className="icon" src="/images/user.png" alt="adsf" />
-          <input
-            type="text"
-            className="form-input"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="enter username..."
-          />
+        <h1>{method_name}</h1>
+        <div className="field">
+          <p className="label">username</p>
+          <div className="input-field">
+            <img className="icon" src="/images/user.png" alt="adsf" />
+            <input
+              type="text"
+              className="form-input"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="enter username..."
+            />
+          </div>
         </div>
-      </div>
 
-      <div className="field">
-        <p className="label">password</p>
+        <div className="field">
+          <p className="label">password</p>
 
-        <div className="input-field">
-          <img className="icon" src="/images/lock.png" alt="adsf" />
-          <input
-            type="password"
-            className="form-input"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="enter password..."
-          />
+          <div className="input-field">
+            <img className="icon" src="/images/lock.png" alt="adsf" />
+            <input
+              type="password"
+              className="form-input"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="enter password..."
+            />
+          </div>
         </div>
-      </div>
 
-      {method === "Register" && (
-        <>
-          <input
-            type="email"
-            className="form-input"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="enter email..."
-          />
-          <select
-            className="form-input"
-            id="role"
-            name="role"
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
-          >
-            <option value="teacher">teacher</option>
-            <option value="parent">parent</option>
-            <option value="admin">admin</option>
-          </select>
-          {renderFields(role)}
-        </>
-      )}
-      <button className=" btn form-button" type="submit">
-        {method_name}
-      </button>
-    </form>
+        {method === "Register" && (
+          <>
+            <div className="field">
+              <p className="label">email</p>
 
+              <div className="input-field">
+                <img className="icon" src="/images/mail.png" alt="adsf" />
+                <input
+                  type="email"
+                  className="form-input"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="enter email..."
+                />
+              </div>
+            </div>
+
+            <div className="field">
+              <p className="label role-label">select role:</p>
+              <div className="input-field">
+                <img className="icon" src="/images/roles.png" alt="adsf" />
+                <select
+                  className="form-input select-input"
+                  id="role"
+                  name="role"
+                  value={role}
+                  onChange={(e) => setRole(e.target.value)}
+                >
+                  <option value="teacher">teacher</option>
+                  <option value="parent">parent</option>
+                  <option value="admin">admin</option>
+                </select>
+              </div>
+            </div>
+
+            {renderFields(role)}
+          </>
+        )}
+        <button className=" btn form-button" type="submit">
+          {method_name}
+        </button>
+      </form>
     </div>
-    
   );
 }
 

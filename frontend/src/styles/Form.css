@@ -1,17 +1,17 @@
-@import './variables.css';
+@import "./variables.css";
 
 .main-container {
   background-color: var(--clr-light);
   border-radius: 0.5rem;
-  padding: clamp(1rem, 4vw, 3rem); 
+  padding: clamp(1rem, 4vw, 3rem);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: min(90%, 500px); 
+  width: min(90%, 500px);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 1;
-  font-size: clamp(0.9rem, 1.5vw, 1.1rem); 
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
 }
 
 .form-container {
@@ -23,20 +23,43 @@
 }
 
 .logo-image {
-  width: clamp(5rem, 15vw, 10rem); 
+  width: clamp(5rem, 15vw, 10rem);
   padding-bottom: 0.5em;
+}
 
+.select-input {
+  font-family: var(--font-primary);
+  font-weight: var(--font-400);
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  
+  
+  border: none;
+  
+  appearance: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+option {
+    font-family: var(--font-primary);
+    background-color: var(--clr-light);
+    color: var(--clr-dark);
+}
+
+option:hover {
+    background-color: var(-clr-primary);
+    color: var(--clr-light);
 }
 
 .form-input {
   width: 100%;
   border: none;
   outline: none;
-  font-size: clamp(0.9rem, 1.5vw, 1.1rem); 
-
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
 }
 
-.form-input:focus{
+.form-input:focus {
   outline: none;
 }
 
@@ -63,7 +86,7 @@
 
 .icon {
   width: auto;
-  height: clamp(16px, 3vw, 20px); 
+  height: clamp(16px, 3vw, 20px);
   padding-right: 2%;
 }
 

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ACCESS_TOKEN } from "../constants";
 import api from "../api";
+import "../styles/Form.css";
 
 function ChildrenForm({ route }) {
   const [name, setName] = useState("");
@@ -33,52 +34,90 @@ function ChildrenForm({ route }) {
         name,
         age,
         personal_id,
-        parent_name
+        parent_name,
       });
-      navigate("/")
+      alert("All good!")
+      navigate("/");
     } catch (err) {
       alert("An error occured", err);
     }
   };
 
   return (
-    <form className="form-container" onSubmit={handleSubmit}>
-      <input
-        className="form-input"
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Enter child's name"
-      />
-      <input
-        className="form-input"
-        type="number"
-        value={age}
-        onChange={(e) => setAge(e.target.value)}
-        placeholder="Enter child's age"
-      />
-      <input
-        className="form-input"
-        type="text"
-        value={personal_id}
-        onChange={(e) => setPersonalId(e.target.value)}
-        placeholder="Enter child's personal id"
-      />
-      <select
-        className="form-input"
-        id="parent_name"
-        value={parent_name || ""}
-        onChange={(e) => setParentName(e.target.value)}
-      >
-        <option value="" disabled>Select a parent</option>
-        {parents.map((parent) => (
-          <option key={parent.id} value={parent.id}>
-            {parent.firstName} {parent.lastName}
+    <div className="main-container">
+      <img className="logo-image" src="/bloom-logo.png" alt="" />
+
+      <form className="form-container" onSubmit={handleSubmit}>
+        <div className="field">
+          <p className="label">Child's Name</p>
+
+          <div className="input-field">
+            <img src="/images/arrow-down.png" alt="" className="icon" />
+            <input
+              className="form-input"
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Enter child's name"
+            />
+          </div>
+        </div>
+        <div className="field">
+          <p className="label">Child's Age</p>
+
+          <div className="input-field">
+            <img src="/images/age.png" alt="" className="icon" />
+            <input
+              className="form-input"
+              type="number"
+              value={age}
+              onChange={(e) => setAge(e.target.value)}
+              placeholder="Enter child's age"
+            />
+          </div>
+        </div>
+
+        <div className="field">
+          <p className="label">Child's Personal Id</p>
+
+          <div className="input-field">
+            <img src="/images/face-id.png" alt="" className="icon" />
+            <input
+              className="form-input"
+              type="text"
+              value={personal_id}
+              onChange={(e) => setPersonalId(e.target.value)}
+              placeholder="Enter child's personal id"
+            />
+          </div>
+        </div>
+        <div className="field">
+          <p className="label">Parent's Name</p>
+
+          <div className="input-field">
+            <img src="/images/arrow-down.png" alt="" className="icon" />
+            <select
+          className="form-input"
+          id="parent_name"
+          value={parent_name || ""}
+          onChange={(e) => setParentName(e.target.value)}
+        >
+          <option value="" disabled>
+            Select a parent
           </option>
-        ))}
-      </select>
-      <button className="form-button" type="submit">Add child</button>
-    </form>
+          {parents.map((parent) => (
+            <option key={parent.id} value={parent.id}>
+              {parent.firstName} {parent.lastName}
+            </option>
+          ))}
+        </select>
+          </div>
+        </div>
+        <button className=" btn form-button" type="submit">
+          Add child
+        </button>
+      </form>
+    </div>
   );
 }
 
