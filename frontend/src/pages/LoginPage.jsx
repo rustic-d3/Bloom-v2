@@ -2,6 +2,8 @@ import "../styles/LoginPage.css";
 import Form from "../components/Form";
 
 function LoginPage() {
+
+  localStorage.clear()
   return (
     <div className="login-body">
       <div className="decorator-1"></div>
