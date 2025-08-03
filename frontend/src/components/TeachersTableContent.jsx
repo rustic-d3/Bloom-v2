@@ -4,11 +4,11 @@ import api from "../api";
 import { useEffect } from "react";
 import { useState } from "react";
 
-function TeachersTableContent() {
+function TeachersTableContent({ search }) {
   const [teachers, setTeachers] = useState([]);
   useEffect(() => {
-          getTeachers();      
-      }, []);
+    getTeachers();
+  }, []);
 
   async function getTeachers() {
     try {
@@ -33,19 +33,28 @@ function TeachersTableContent() {
           </tr>
         </thead>
         <tbody>
-          {teachers.map((teacher, index) => (
-            <tr key={teacher.email}>
-              <td>{index + 1}</td>
-              <td>{teacher.name}</td>
-              <td>{teacher.email}</td>
-              <td >**************</td>
-              <td><div className="operationButtons">
-                <button><img src="/images/edit.png" alt="" className="icon" /></button>
-                <button><img src="/images/delete.png" alt="" className="icon" /></button>
-              </div>
-              </td>
-            </tr>
-          ))}
+          {teachers
+            .filter((teacher) =>
+              teacher.name.toLowerCase().includes(search.toLowerCase())
+            )
+            .map((teacher, index) => (
+              <tr key={teacher.email}>
+                <td>{index + 1}</td>
+                <td>{teacher.name}</td>
+                <td>{teacher.email}</td>
+                <td>**************</td>
+                <td>
+                  <div className="operationButtons">
+                    <button>
+                      <img src="/images/edit.png" alt="" className="icon" />
+                    </button>
+                    <button>
+                      <img src="/images/delete.png" alt="" className="icon" />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>

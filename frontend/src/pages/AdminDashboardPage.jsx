@@ -1,4 +1,4 @@
-import React from "react";
+import React, { use, useState } from "react";
 import { ACCESS_TOKEN } from "../constants";
 import { jwtDecode } from "jwt-decode";
 import UserList from "../components/UsersLIst";
@@ -12,6 +12,39 @@ import ChildrenTableContent from "../components/ChildrenTableContent";
 function AdminDashboardPage() {
   const navigate = useNavigate();
 
+  const [activeTab, setActiveTab] = useState("teachers")
+  const [search, setSearch] = useState("")
+  
+
+  function goTo(){
+    if (activeTab == "children"){
+        navigate('/addChild')    
+    }
+    else if(activeTab == "teachers" || activeTab == "parents"){
+        navigate('/register')    
+    }
+  }
+
+
+
+  function renderTable(activeTab){
+    if (activeTab == "children"){
+        return(
+            <ChildrenTableContent search = {search}/>
+        )
+    }
+    else if(activeTab == "teachers"){
+        return(
+            <TeachersTableContent search = {search}/>
+        )
+    }
+    else if(activeTab == "parents"){
+        return(
+            <ParentsTableContent search = {search}/>
+        )   
+    }
+  }
+
   return (
     <>
       <Navbar></Navbar>
@@ -20,17 +53,17 @@ function AdminDashboardPage() {
           <div className="tabs">
             <ul>
               <li>
-                <a href="#" className="link">
-                  Instructors
+                <a href="#" className="link" onClick={()=> setActiveTab("teachers")}>
+                  Teachers
                 </a>
               </li>
               <li>
-                <a href="#" className="link">
+                <a href="#" className="link" onClick={()=> setActiveTab("parents")} >
                   Parents
                 </a>
               </li>
               <li>
-                <a href="#" className="link">
+                <a href="#" className="link" onClick={()=> setActiveTab("children")}>
                   Childrens
                 </a>
               </li>
@@ -39,12 +72,12 @@ function AdminDashboardPage() {
           <div className="operations">
             <div className="inputField">
               <img src="/images/search.png" alt="icon" className="icon" />
-              <input type="text" name="" id="" />
+              <input type="text" name="" id="" placeholder="Search by name" onChange={(e)=>setSearch(e.target.value)} />
             </div>
-            <button className="search-button">Add new</button>
+            <button className="search-button" onClick={()=>goTo()}>Add new</button>
           </div>
         </div>
-        <ChildrenTableContent/>
+        {renderTable(activeTab)}
       </div>
     </>
   );

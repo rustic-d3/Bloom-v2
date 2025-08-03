@@ -4,11 +4,11 @@ import api from "../api";
 import { useEffect } from "react";
 import { useState } from "react";
 
-function ChildrenTableContent() {
+function ChildrenTableContent({ search }) {
   const [children, setChildren] = useState([]);
   useEffect(() => {
-          getChildren();      
-      }, []);
+    getChildren();
+  }, []);
 
   async function getChildren() {
     try {
@@ -19,6 +19,7 @@ function ChildrenTableContent() {
       console.error("Error fetching children:", err);
     }
   }
+  console.log(search);
 
   return (
     <div className="container">
@@ -34,20 +35,29 @@ function ChildrenTableContent() {
           </tr>
         </thead>
         <tbody>
-          {children.map((children, index) => (
-            <tr key={children.name}>
-              <td>{index+1}</td>
-              <td>{children.name}</td>
-              <td>{children.age} ani</td>
-              <td>{children.personal_id}</td>
-              <td>{children.parent_name}</td>
-              <td><div className="operationButtons">
-                <button><img src="/images/edit.png" alt="" className="icon" /></button>
-                <button><img src="/images/delete.png" alt="" className="icon" /></button>
-              </div>
-              </td>
-            </tr>
-          ))}
+          {children
+            .filter((child) =>
+              child.name.toLowerCase().includes(search.toLowerCase())
+            )
+            .map((child, index) => (
+              <tr key={child.name}>
+                <td>{index + 1}</td>
+                <td>{child.name}</td>
+                <td>{child.age} ani</td>
+                <td>{child.personal_id}</td>
+                <td>{child.parent_name}</td>
+                <td>
+                  <div className="operationButtons">
+                    <button>
+                      <img src="/images/edit.png" alt="" className="icon" />
+                    </button>
+                    <button>
+                      <img src="/images/delete.png" alt="" className="icon" />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>
