@@ -65,9 +65,10 @@ class ParentSerializer(serializers.ModelSerializer):
         }
 
 class TeacherSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(source='user.email', read_only=True)
     class Meta:
         model = Teacher
-        fields = ["id", "user", "name"]
+        fields = ["id", "user", "name", 'email']
         extra_kwargs = {
             "user": {"read_only": True}
         }

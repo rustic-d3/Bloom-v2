@@ -239,7 +239,7 @@ function ClassRoomForm({ route }) {
             />
           </div>
         </div>
-        <button className=" btn form-button" type="submit">
+        <button className=" appButton form-button" type="submit">
           Create classroom
         </button>
       </form>

@@ -238,7 +238,7 @@ function Form({ route, method }) {
             {renderFields(role)}
           </>
         )}
-        <button className=" btn form-button" type="submit">
+        <button className=" appButton form-button" type="submit">
           {method_name}
         </button>
       </form>

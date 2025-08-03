@@ -82,7 +82,7 @@ function Navbar() {
   }
 
   return (
-    <nav className="navbar">
+    <nav className="navBar">
       <div className="logo">
         <img src="/bloom-logo.png" alt="logo" />
       </div>

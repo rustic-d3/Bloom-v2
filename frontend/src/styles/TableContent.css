@@ -1,0 +1,7 @@
+@import './variables.css';
+
+.operationButtons button{
+    border: none;
+    background-color: transparent;
+
+}

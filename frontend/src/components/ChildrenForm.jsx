@@ -113,7 +113,7 @@ function ChildrenForm({ route }) {
         </select>
           </div>
         </div>
-        <button className=" btn form-button" type="submit">
+        <button className=" appButton form-button" type="submit">
           Add child
         </button>
       </form>

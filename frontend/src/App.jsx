@@ -13,6 +13,7 @@ import AddChildPage from "./pages/AddChildPage";
 import RegisterPage from "./pages/RegisterPage";
 import TeacherDashboard from "./pages/TeacherDashboard";
 import ParenDashboard from "./pages/ParentDashboard"
+import TableContet from "./components/TableContent";
 
 function Logout() {
   localStorage.clear();
@@ -80,6 +81,7 @@ function App() {
           />
           <Route path="/logout" element={<Logout />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/table" element={<TableContet />} />
         </Routes>
       </BrowserRouter>
     </>
