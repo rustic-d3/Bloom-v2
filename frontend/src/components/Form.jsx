@@ -134,7 +134,7 @@ function Form({ route, method }) {
             phone,
           });
           alert("Registration successful! You can now log in.");
-          navigate("/login");
+          navigate("/");
         }
         if (role === "teacher") {
           console.log(username, password, email, role, name);
@@ -145,7 +145,7 @@ function Form({ route, method }) {
             role,
             name,
           });
-          navigate("/login");
+          navigate("/");
         }
         if (role === "admin") {
           console.log(username, password, email, role);
@@ -155,7 +155,7 @@ function Form({ route, method }) {
             email,
             role,
           });
-          navigate("/login");
+          navigate("/");
         }
       }
     } catch (err) {
