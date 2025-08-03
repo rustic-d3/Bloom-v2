@@ -57,9 +57,10 @@ class NoteSerializer(serializers.ModelSerializer):
         }
 
 class ParentSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(source='user.email', read_only=True)
     class Meta:
         model = Parent
-        fields = ["id", "firstName", "lastName", "phone"]
+        fields = ["id", "firstName", "lastName", "email", "phone"]
         extra_kwargs = {
             "phone": {"required": True, "allow_blank": False}
         }

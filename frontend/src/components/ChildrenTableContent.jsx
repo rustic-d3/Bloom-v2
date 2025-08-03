@@ -4,19 +4,19 @@ import api from "../api";
 import { useEffect } from "react";
 import { useState } from "react";
 
-function ParentsTableContent() {
-  const [parents, setparents] = useState([]);
+function ChildrenTableContent() {
+  const [children, setChildren] = useState([]);
   useEffect(() => {
-          getParents();      
+          getChildren();      
       }, []);
 
-  async function getParents() {
+  async function getChildren() {
     try {
-      const res = await api.get("api/user/parents/list/");
-      setparents(res.data);
+      const res = await api.get("api/children/list/");
+      setChildren(res.data);
       console.log(res.data);
     } catch (err) {
-      console.error("Error fetching users:", err);
+      console.error("Error fetching children:", err);
     }
   }
 
@@ -25,24 +25,22 @@ function ParentsTableContent() {
       <table className="table table-striped table-hover">
         <thead className="table-dark">
           <tr>
-            <th>Id</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Phone Number</th>
-            <th>Password</th>
+            <th>#</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Personal Id</th>
+            <th>Parent Id</th>
             <th>Operations</th>
           </tr>
         </thead>
         <tbody>
-          {parents.map((parent, index) => (
-            <tr key={parent.id}>
-              <td>{parent.id}</td>
-              <td>{parent.firstName}</td>
-              <td>{parent.lastName}</td>
-              <td>{parent.email}</td>
-              <td>{parent.phone}</td>
-              <td >**************</td>
+          {children.map((children, index) => (
+            <tr key={children.name}>
+              <td>{index+1}</td>
+              <td>{children.name}</td>
+              <td>{children.age} ani</td>
+              <td>{children.personal_id}</td>
+              <td>{children.parent_name}</td>
               <td><div className="operationButtons">
                 <button><img src="/images/edit.png" alt="" className="icon" /></button>
                 <button><img src="/images/delete.png" alt="" className="icon" /></button>
@@ -56,4 +54,4 @@ function ParentsTableContent() {
   );
 }
 
-export default ParentsTableContent;
+export default ChildrenTableContent;

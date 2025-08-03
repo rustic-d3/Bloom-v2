@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import TeachersTableContent from "../components/TeachersTableContent";
 import "../styles/AdminDashboardPage.css";
+import ParentsTableContent from "../components/ParentsTableContent";
+import ChildrenTableContent from "../components/ChildrenTableContent";
 
 function AdminDashboardPage() {
   const navigate = useNavigate();
@@ -42,7 +44,7 @@ function AdminDashboardPage() {
             <button className="search-button">Add new</button>
           </div>
         </div>
-        <TeachersTableContent/>
+        <ChildrenTableContent/>
       </div>
     </>
   );
