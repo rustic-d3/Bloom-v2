@@ -10,22 +10,27 @@ function ChildrenTableContent({ search }) {
   const [selected, setSelected] = useState(null);
   const [editedChild, setEditedChild] = useState(null);
   console.log(editedChild);
-  const navigate = useNavigate();
 
   useEffect(() => {
     getChildren();
   }, []);
 
-
-  async function saveEdit(){
-    try{
-      const res = await api.put(`api/update/child/${editedChild.id}/`, editedChild)
-      window. location. reload();
-
-    }catch(err){
-    console('An error occured', err)
+  async function saveEdit() {
+    try {
+      const res = await api.put(
+        `api/update/child/${editedChild.id}/`,
+        editedChild
+      );
+      setChildren((prevChildren) =>
+        prevChildren.map((child) =>
+          child.id === editedChild.id ? editedChild : child
+        )
+      );
+      setSelected(null);
+      setEditedChild(null);
+    } catch (err) {
+      console("An error occured", err);
     }
-
   }
 
   async function getChildren() {
@@ -73,22 +78,22 @@ function ChildrenTableContent({ search }) {
                     <input
                       type="text"
                       readOnly={!isEditable}
-                      value={
-                        isEditable ? editedChild?.name ?? "" : child.name
-                      }
+                      value={isEditable ? editedChild?.name ?? "" : child.name}
                       onChange={(e) => handleInputChange(e, "name")}
-                      className={`tableInput ${isEditable ? "editableInput" : ""}`}
+                      className={`tableInput ${
+                        isEditable ? "editableInput" : ""
+                      }`}
                     />
                   </td>
                   <td>
                     <input
                       type="number"
                       readOnly={!isEditable}
-                      value={
-                        isEditable ? editedChild?.age ?? "" : child.age
-                      }
+                      value={isEditable ? editedChild?.age ?? "" : child.age}
                       onChange={(e) => handleInputChange(e, "age")}
-                      className={`tableInput ${isEditable ? "editableInput" : ""}`}
+                      className={`tableInput ${
+                        isEditable ? "editableInput" : ""
+                      }`}
                     />
                   </td>
                   <td>
@@ -96,10 +101,14 @@ function ChildrenTableContent({ search }) {
                       type="text"
                       readOnly={!isEditable}
                       value={
-                        isEditable ? editedChild?.personal_id ?? "" : child.personal_id
+                        isEditable
+                          ? editedChild?.personal_id ?? ""
+                          : child.personal_id
                       }
                       onChange={(e) => handleInputChange(e, "personal_id")}
-                      className={`tableInput ${isEditable ? "editableInput" : ""}`}
+                      className={`tableInput ${
+                        isEditable ? "editableInput" : ""
+                      }`}
                     />
                   </td>
                   <td>
@@ -107,18 +116,20 @@ function ChildrenTableContent({ search }) {
                       type="text"
                       readOnly={!isEditable}
                       value={
-                        isEditable ? editedChild?.parent_name ?? "" : child.parent_name
+                        isEditable
+                          ? editedChild?.parent_name ?? ""
+                          : child.parent_name
                       }
                       onChange={(e) => handleInputChange(e, "parent_name")}
-                      className={`tableInput ${isEditable ? "editableInput" : ""}`}
+                      className={`tableInput ${
+                        isEditable ? "editableInput" : ""
+                      }`}
                     />
                   </td>
                   <td>
                     <div className="operationButtons">
                       {isEditable ? (
-                        <button onClick={() => saveEdit()}>
-                          Save
-                        </button>
+                        <button onClick={() => saveEdit()}>Save</button>
                       ) : (
                         <button onClick={() => handleEditClick(child)}>
                           <img src="/images/edit.png" alt="" className="icon" />

@@ -16,7 +16,7 @@ print(datetime.date.today().strftime('%Y-%m-%d'))
 class CreateUserView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [IsAdminRole]  
+    permission_classes = [AllowAny]  
 
 class ListUserView(generics.ListAPIView):
     queryset = User.objects.all()
@@ -26,7 +26,7 @@ class ListUserView(generics.ListAPIView):
 class ParentListView(generics.ListAPIView):
     queryset = Parent.objects.all()
     serializer_class = ParentSerializer
-    permission_classes = [IsAdminRole]
+    permission_classes = [AllowAny]
 
 class TeacherListView(generics.ListAPIView):
     queryset = Teacher.objects.all()
@@ -50,6 +50,11 @@ class Childview(generics.ListAPIView):
 class ChildUpdateview(generics.RetrieveUpdateDestroyAPIView):
     queryset = Child.objects.all()
     serializer_class = ChildSerializer
+    permission_classes = [AllowAny]
+
+class ParentUpdateview(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Parent.objects.all()
+    serializer_class = ParentSerializer
     permission_classes = [AllowAny]
 
 

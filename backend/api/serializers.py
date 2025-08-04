@@ -57,7 +57,7 @@ class NoteSerializer(serializers.ModelSerializer):
         }
 
 class ParentSerializer(serializers.ModelSerializer):
-    email = serializers.EmailField(source='user.email', read_only=True)
+    email = serializers.EmailField(source='user.email')
     class Meta:
         model = Parent
         fields = ["id", "firstName", "lastName", "email", "phone"]
@@ -66,7 +66,7 @@ class ParentSerializer(serializers.ModelSerializer):
         }
 
 class TeacherSerializer(serializers.ModelSerializer):
-    email = serializers.EmailField(source='user.email', read_only=True)
+    email = serializers.EmailField(source='user.email')
     class Meta:
         model = Teacher
         fields = ["id", "user", "name", 'email']
