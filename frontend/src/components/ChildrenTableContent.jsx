@@ -112,19 +112,7 @@ function ChildrenTableContent({ search }) {
                     />
                   </td>
                   <td>
-                    <input
-                      type="text"
-                      readOnly={!isEditable}
-                      value={
-                        isEditable
-                          ? editedChild?.parent_name ?? ""
-                          : child.parent_name
-                      }
-                      onChange={(e) => handleInputChange(e, "parent_name")}
-                      className={`tableInput ${
-                        isEditable ? "editableInput" : ""
-                      }`}
-                    />
+                    {child.parent_name}                  
                   </td>
                   <td>
                     <div className="operationButtons">

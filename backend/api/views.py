@@ -1,9 +1,10 @@
 import datetime
 from django.shortcuts import render
 
-from rest_framework import generics
+from rest_framework import generics, status
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.contrib.auth import get_user_model
+from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from .serializers import UserSerializer, NoteSerializer, ClassRoomSerializer, CustomTokenObtainPairSerializer, TeacherSerializer, ParentSerializer, ChildSerializer
 from .models import Note, ClassRoom, Teacher, Parent, Child
@@ -57,6 +58,22 @@ class ParentUpdateview(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ParentSerializer
     permission_classes = [AllowAny]
 
+class TeacherUpdateview(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Teacher.objects.all()
+    serializer_class = TeacherSerializer
+    permission_classes = [IsAdminRole]
+
+class TeacherDeleteview(generics.DestroyAPIView):
+    queryset = Teacher.objects.all()
+    serializer_class = TeacherSerializer
+    permission_classes = [AllowAny]
+    
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        user = instance.user
+        self.perform_destroy(instance)
+        user.delete()  
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 class CreateClassRoomview(generics.ListCreateAPIView):
     queryset = ClassRoom.objects.all()
