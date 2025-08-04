@@ -35,6 +35,8 @@ urlpatterns = [
     path('api/update/parent/<int:pk>/', ParentUpdateview.as_view(), name='update parent'),
     path('api/update/child/<int:pk>/', ChildUpdateview.as_view(), name='update child'),
     path('api/update/teacher/<int:pk>/', TeacherUpdateview.as_view(), name='update teacher'),
-    path('api/delete/teacher/<int:pk>/', TeacherDeleteview.as_view(), name='delete teacher')
+    path('api/delete/teacher/<int:pk>/', TeacherDeleteview.as_view(), name='delete teacher'),
+    path('api/delete/parent/<int:pk>/', TeacherDeleteview.as_view(), name='delete parent'),
+    path('api/delete/child/<int:pk>/', TeacherDeleteview.as_view(), name='delete child')
     
 ]

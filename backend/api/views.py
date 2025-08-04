@@ -66,7 +66,7 @@ class TeacherUpdateview(generics.RetrieveUpdateDestroyAPIView):
 class TeacherDeleteview(generics.DestroyAPIView):
     queryset = Teacher.objects.all()
     serializer_class = TeacherSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAdminRole]
     
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -74,6 +74,23 @@ class TeacherDeleteview(generics.DestroyAPIView):
         self.perform_destroy(instance)
         user.delete()  
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class ParentDeleteview(generics.DestroyAPIView):
+    queryset = Parent.objects.all()
+    serializer_class = ParentSerializer
+    permission_classes = [IsAdminRole]
+    
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        user = instance.user
+        self.perform_destroy(instance)
+        user.delete()  
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
+class ChildDeleteview(generics.DestroyAPIView):
+    queryset = Child.objects.all()
+    serializer_class = ChildSerializer
+    permission_classes = [IsAdminRole]
 
 class CreateClassRoomview(generics.ListCreateAPIView):
     queryset = ClassRoom.objects.all()
