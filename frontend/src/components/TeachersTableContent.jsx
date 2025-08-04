@@ -105,7 +105,7 @@ function TeachersTableContent({ search }) {
                   <td>
                     <div className="operationButtons">
                       {isEditable ? (
-                        <button onClick={() => saveEdit()}>Save</button>
+                        <button onClick={() => saveEdit()}><img src="/images/save.png" alt="" className="icon" /></button>
                       ) : (
                         <button onClick={() => handleEditClick(teacher)}>
                           <img src="/images/edit.png" alt="" className="icon" />
