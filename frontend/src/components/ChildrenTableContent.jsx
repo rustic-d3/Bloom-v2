@@ -3,12 +3,30 @@ import "../styles/TableContent.css";
 import api from "../api";
 import { useEffect } from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function ChildrenTableContent({ search }) {
   const [children, setChildren] = useState([]);
+  const [selected, setSelected] = useState(null);
+  const [editedChild, setEditedChild] = useState(null);
+  console.log(editedChild);
+  const navigate = useNavigate();
+
   useEffect(() => {
     getChildren();
   }, []);
+
+
+  async function saveEdit(){
+    try{
+      const res = await api.put(`api/update/child/${editedChild.id}/`, editedChild)
+      window. location. reload();
+
+    }catch(err){
+    console('An error occured', err)
+    }
+
+  }
 
   async function getChildren() {
     try {
@@ -19,7 +37,14 @@ function ChildrenTableContent({ search }) {
       console.error("Error fetching children:", err);
     }
   }
-  console.log(search);
+  function handleEditClick(child) {
+    setSelected(child.id);
+    setEditedChild({ ...child });
+  }
+
+  function handleInputChange(e, field) {
+    setEditedChild({ ...editedChild, [field]: e.target.value });
+  }
 
   return (
     <div className="container">
@@ -39,25 +64,74 @@ function ChildrenTableContent({ search }) {
             .filter((child) =>
               child.name.toLowerCase().includes(search.toLowerCase())
             )
-            .map((child, index) => (
-              <tr key={child.name}>
-                <td>{index + 1}</td>
-                <td>{child.name}</td>
-                <td>{child.age} ani</td>
-                <td>{child.personal_id}</td>
-                <td>{child.parent_name}</td>
-                <td>
-                  <div className="operationButtons">
-                    <button>
-                      <img src="/images/edit.png" alt="" className="icon" />
-                    </button>
-                    <button>
-                      <img src="/images/delete.png" alt="" className="icon" />
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
+            .map((child, index) => {
+              const isEditable = child.id === selected;
+              return (
+                <tr key={child.id}>
+                  <td>{index + 1}</td>
+                  <td>
+                    <input
+                      type="text"
+                      readOnly={!isEditable}
+                      value={
+                        isEditable ? editedChild?.name ?? "" : child.name
+                      }
+                      onChange={(e) => handleInputChange(e, "name")}
+                      className={`tableInput ${isEditable ? "editableInput" : ""}`}
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="number"
+                      readOnly={!isEditable}
+                      value={
+                        isEditable ? editedChild?.age ?? "" : child.age
+                      }
+                      onChange={(e) => handleInputChange(e, "age")}
+                      className={`tableInput ${isEditable ? "editableInput" : ""}`}
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      readOnly={!isEditable}
+                      value={
+                        isEditable ? editedChild?.personal_id ?? "" : child.personal_id
+                      }
+                      onChange={(e) => handleInputChange(e, "personal_id")}
+                      className={`tableInput ${isEditable ? "editableInput" : ""}`}
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      readOnly={!isEditable}
+                      value={
+                        isEditable ? editedChild?.parent_name ?? "" : child.parent_name
+                      }
+                      onChange={(e) => handleInputChange(e, "parent_name")}
+                      className={`tableInput ${isEditable ? "editableInput" : ""}`}
+                    />
+                  </td>
+                  <td>
+                    <div className="operationButtons">
+                      {isEditable ? (
+                        <button onClick={() => saveEdit()}>
+                          Save
+                        </button>
+                      ) : (
+                        <button onClick={() => handleEditClick(child)}>
+                          <img src="/images/edit.png" alt="" className="icon" />
+                        </button>
+                      )}
+                      <button>
+                        <img src="/images/delete.png" alt="" className="icon" />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
         </tbody>
       </table>
     </div>

@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from api.views import CreateUserView, TokenObtainPairView, ListUserView, TeacherListView, ParentListView, CreateChildView, Childview
+from api.views import ChildUpdateview, CreateUserView, TokenObtainPairView, ListUserView, TeacherListView, ParentListView, CreateChildView, Childview
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 
@@ -32,4 +32,5 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name="refresh"),
     path('api-auth/', include("rest_framework.urls")),
     path('api/', include('api.urls')),
+    path('api/update/child/<int:pk>/', ChildUpdateview.as_view(), name='update child')
 ]

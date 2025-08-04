@@ -5,3 +5,17 @@
     background-color: transparent;
 
 }
+
+.tableInput{
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+.editableInput {
+  
+  background-color: var(--clr-primary);
+  color: white;
+  outline: none;
+  border-radius: 5px;
+}

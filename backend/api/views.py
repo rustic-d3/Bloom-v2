@@ -46,7 +46,11 @@ class Childview(generics.ListAPIView):
     queryset = Child.objects.all()
     serializer_class = ChildSerializer
     permission_classes = [IsAdminRole]
-
+    
+class ChildUpdateview(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Child.objects.all()
+    serializer_class = ChildSerializer
+    permission_classes = [AllowAny]
 
 
 class CreateClassRoomview(generics.ListCreateAPIView):
