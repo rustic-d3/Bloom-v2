@@ -22,6 +22,19 @@ function ParentsTableContent({ search }) {
       console.error("Error fetching users:", err);
     }
   }
+    async function handleDelete(parent) {
+    console.log(parent.id);
+    try {
+      const res = await api.delete(`api/delete/parent/${parent.id}/`);
+      setparents((prevParents) =>
+      prevParents.filter((p) => p.id !== parent.id)
+    );
+      setSelected(null);
+      setEditedParent(null);
+    } catch (err) {
+      console.log("An error occured", err);
+    }
+  }
 
   async function saveEdit() {
     try {
@@ -116,7 +129,7 @@ function ParentsTableContent({ search }) {
                           <img src="/images/edit.png" alt="" className="icon" />
                         </button>
                       )}
-                      <button>
+                      <button onClick={() => handleDelete(parent)}>
                         <img src="/images/delete.png" alt="" className="icon" />
                       </button>
                     </div>
