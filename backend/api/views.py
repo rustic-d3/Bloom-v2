@@ -76,9 +76,16 @@ class TeacherDeleteview(generics.DestroyAPIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
     
 class TeacherObtainView(generics.RetrieveAPIView):
-    queryset = Teacher.objects.all()
     serializer_class = TeacherSerializer
     permission_classes = [IsTeacherRole]
+    
+    def get_queryset(self):
+        return Teacher.objects.all()
+    
+    def get_object(self):
+        user_id = self.kwargs['user_id'];
+        
+        return self.get_queryset().get(user__id=user_id)
     
     
 

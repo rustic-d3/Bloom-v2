@@ -11,7 +11,7 @@ function TeacherInfoContainer({ teacher }) {
         />
       </div>
       <div className="info-section">
-        <h1 className="title">Name: Wanessa Grati</h1>
+        <h1 className="title">Name: {teacher.name}</h1>
         <div className="descriptionContainer">
           <div className="description">
             <h2>Description</h2>
@@ -23,6 +23,9 @@ function TeacherInfoContainer({ teacher }) {
           <div className="buttonSection">
             <button>
               <img src="/images/calendar.png" alt="" /> Set availability
+            </button>
+            <button>
+              Set description
             </button>
           </div>
         </div>

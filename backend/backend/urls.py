@@ -38,6 +38,6 @@ urlpatterns = [
     path('api/delete/teacher/<int:pk>/', TeacherDeleteview.as_view(), name='delete teacher'),
     path('api/delete/parent/<int:pk>/', ParentDeleteview.as_view(), name='delete parent'),
     path('api/delete/child/<int:pk>/', ChildDeleteview.as_view(), name='delete child'),
-    path('api/get/teacher/<int:pk>/', TeacherObtainView.as_view(), name='get teacher')
+    path('api/get/teacher/<int:user_id>/', TeacherObtainView.as_view(), name='get teacher')
     
 ]
