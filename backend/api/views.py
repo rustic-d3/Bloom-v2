@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from .serializers import UserSerializer, NoteSerializer, ClassRoomSerializer, CustomTokenObtainPairSerializer, TeacherSerializer, ParentSerializer, ChildSerializer
 from .models import Note, ClassRoom, Teacher, Parent, Child
-from .permissions import IsAdminRole
+from .permissions import IsAdminRole, IsTeacherRole, IsParentRole
 
 
 User = get_user_model()
@@ -74,6 +74,13 @@ class TeacherDeleteview(generics.DestroyAPIView):
         self.perform_destroy(instance)
         user.delete()  
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+class TeacherObtainView(generics.RetrieveAPIView):
+    queryset = Teacher.objects.all()
+    serializer_class = TeacherSerializer
+    permission_classes = [IsTeacherRole]
+    
+    
 
 class ParentDeleteview(generics.DestroyAPIView):
     queryset = Parent.objects.all()
