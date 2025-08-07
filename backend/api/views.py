@@ -86,6 +86,16 @@ class TeacherObtainView(generics.RetrieveAPIView):
         user_id = self.kwargs['user_id'];
         
         return self.get_queryset().get(user__id=user_id)
+
+class TeacherClassroomsView(generics.ListAPIView):
+    serializer_class = ClassRoomSerializer
+    permission_classes = [IsTeacherRole]
+    
+    def get_queryset(self):
+        teacher = self.request.user
+        return teacher.classes.all()
+
+    
     
     
 

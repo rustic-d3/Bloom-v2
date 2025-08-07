@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from api.views import ChildDeleteview, ChildUpdateview, CreateUserView, ParentDeleteview, ParentUpdateview, TeacherDeleteview, TeacherObtainView, TeacherUpdateview, TokenObtainPairView, ListUserView, TeacherListView, ParentListView, CreateChildView, Childview
+from api.views import ChildDeleteview, ChildUpdateview, CreateUserView, ParentDeleteview, ParentUpdateview, TeacherClassroomsView, TeacherDeleteview, TeacherObtainView, TeacherUpdateview, TokenObtainPairView, ListUserView, TeacherListView, ParentListView, CreateChildView, Childview
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 
@@ -38,6 +38,7 @@ urlpatterns = [
     path('api/delete/teacher/<int:pk>/', TeacherDeleteview.as_view(), name='delete teacher'),
     path('api/delete/parent/<int:pk>/', ParentDeleteview.as_view(), name='delete parent'),
     path('api/delete/child/<int:pk>/', ChildDeleteview.as_view(), name='delete child'),
-    path('api/get/teacher/<int:user_id>/', TeacherObtainView.as_view(), name='get teacher')
+    path('api/get/teacher/<int:user_id>/', TeacherObtainView.as_view(), name='get teacher'),
+    path('api/get/classrooms', TeacherClassroomsView.as_view(), name='get classrooms')
     
 ]
