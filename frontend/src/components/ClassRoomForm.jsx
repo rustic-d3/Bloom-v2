@@ -14,6 +14,7 @@ function ClassRoomForm({ route }) {
   const [end_date, setEndDate] = useState("");
   const [start_time, setStartTime] = useState("");
   const [end_time, setEndTime] = useState("");
+  const [repeat_days, setRepeatDays] = useState("")
 
   const navigate = useNavigate();
 
@@ -42,7 +43,8 @@ function ClassRoomForm({ route }) {
         start_date,
         end_date,
         start_time,
-        end_time
+        end_time,
+        repeat_days
       );
 
       const res = await api.post(route, {
@@ -54,6 +56,7 @@ function ClassRoomForm({ route }) {
         end_date,
         start_time,
         end_time,
+        repeat_days
       });
 
       navigate("/");
@@ -237,6 +240,30 @@ function ClassRoomForm({ route }) {
               value={end_time}
               onChange={(e) => setEndTime(e.target.value)}
             />
+          </div>
+        </div>
+
+        <div className="field">
+          <p className="label">Repeat days</p>
+          <div className="input-field">
+            <img src="images/user.png" alt="" className="icon" />
+            <select
+              className="form-input"
+              id="repeat_days"
+              value={repeat_days || ""}
+              onChange={(e) => setRepeatDays(e.target.value)}
+            >
+              <option value="" disabled>
+                Select a repeat day
+              </option>
+              <option value="MO">MO</option>
+              <option value="TU">TU</option>
+              <option value="WE">WE</option>
+              <option value="TH">TH</option>
+              <option value="FR">FR</option>
+              <option value="SA">SA</option>
+              <option value="SU">SU</option>
+            </select>
           </div>
         </div>
         <button className=" appButton form-button" type="submit">

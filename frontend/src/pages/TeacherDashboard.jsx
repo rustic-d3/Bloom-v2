@@ -9,6 +9,7 @@ import { jwtDecode } from "jwt-decode";
 function TeacherDashboard() {
   const [userId, setUserId] = useState(null);
   const [teacher, setTeacher] = useState([]);
+  const [classRooms, setClassRooms] = useState([])
 
   useEffect(() => {
     const getUserId = async () => {
@@ -40,6 +41,21 @@ function TeacherDashboard() {
 
     getTeacher();
   }, [userId]);
+  useEffect(() => {
+    const getClassrooms = async () => {
+      if (!userId) return; 
+      try {
+        const res = await api.get('api/get/classrooms/');
+        setClassRooms(res.data);
+        console.log("Class Rooms data:", res.data);
+      } catch (err) {
+        console.error("An error occurred fetching classRooms:", err);
+      }
+    };
+
+    getClassrooms();
+    console.log( "classrooms:", classRooms)
+  }, [userId]);
 
   return (
     <>
@@ -50,11 +66,19 @@ function TeacherDashboard() {
         </div>
 
         <div className="classRooms">
-          <div className="classRoom"></div>
-          <div className="classRoom"></div>
-          <div className="classRoom"></div>
-          <div className="classRoom"></div>
-          <div className="classRoom"></div>
+          {classRooms.map((session)=>{
+            return (<div key={session.id} className="classRoom">
+              <div className="title">
+                {session.classRoom.title}
+              </div>
+              <div className="date">
+                {session.date}
+              </div>
+            </div>)
+          }
+        )}
+          
+          
           
         </div>
       </div>

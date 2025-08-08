@@ -1,5 +1,4 @@
 from django.db import models
-
 from django.contrib.auth.models import AbstractUser
 
 class CustomUser(AbstractUser):
@@ -62,9 +61,22 @@ class ClassRoom(models.Model):
     end_date = models.DateField()
     start_time = models.TimeField()
     end_time = models.TimeField()
+    repeat_days = models.CharField(
+        max_length=50,
+        help_text="MO,TU,WE,TH,FR,SA,SU",
+        null=True,
+        blank=True
+    )
 
     def __str__(self):
         return self.title
+    
+class ClassSession(models.Model):
+    classRoom = models.ForeignKey(ClassRoom, on_delete=models.CASCADE, related_name='session')
+    date = models.DateField()
+    meetUrl = models.URLField( null=True, blank=True)
+    isCanceled = models.BooleanField()
+    
 
 
 class Admin(models.Model):

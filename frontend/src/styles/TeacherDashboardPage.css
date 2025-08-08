@@ -34,6 +34,12 @@
     height: 15rem;
     background-color: var(--clr-secondary);
     margin: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--clr-light);
+    font-weight: var(--font-700);
 }
 
 .info-container {

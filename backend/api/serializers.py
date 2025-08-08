@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
-from .models import Note, CustomUser, Teacher, Child, ClassRoom, Admin, Parent
+from .models import ClassSession, Note, CustomUser, Teacher, Child, ClassRoom, Admin, Parent
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 User = get_user_model()
@@ -83,8 +83,19 @@ class ChildSerializer(serializers.ModelSerializer):
 class ClassRoomSerializer(serializers.ModelSerializer):
     class Meta:
         model = ClassRoom
-        fields = ["id", "title", "subject", "type", "teacher", "children", "start_date", "end_date", "start_time", "end_time"]
+        fields = ["id", "title", "subject", "type", "teacher", "children", "start_date", "end_date", "start_time", "end_time", "repeat_days"]
         
+class ClassRoomMiniSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ClassRoom
+        fields = ['id', 'title', 'subject', "type", 'start_time', 'end_time']
+
+class ClassSessionSerializer(serializers.ModelSerializer):
+    classRoom = ClassRoomMiniSerializer()
+
+    class Meta:
+        model = ClassSession
+        fields = ['id', 'classRoom', 'date', 'meetUrl', 'isCanceled']
         
         
 

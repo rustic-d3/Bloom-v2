@@ -6,9 +6,10 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from django.contrib.auth import get_user_model
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from .serializers import UserSerializer, NoteSerializer, ClassRoomSerializer, CustomTokenObtainPairSerializer, TeacherSerializer, ParentSerializer, ChildSerializer
-from .models import Note, ClassRoom, Teacher, Parent, Child
+from .serializers import ClassSessionSerializer, UserSerializer, NoteSerializer, ClassRoomSerializer, CustomTokenObtainPairSerializer, TeacherSerializer, ParentSerializer, ChildSerializer
+from .models import ClassSession, Note, ClassRoom, Teacher, Parent, Child
 from .permissions import IsAdminRole, IsTeacherRole, IsParentRole
+from .services import generate_meet_link, generate_session
 
 
 User = get_user_model()
@@ -92,7 +93,7 @@ class TeacherClassroomsView(generics.ListAPIView):
     permission_classes = [IsTeacherRole]
     
     def get_queryset(self):
-        teacher = self.request.user
+        teacher = self.request.user.teacher
         return teacher.classes.all()
 
     
@@ -121,7 +122,20 @@ class CreateClassRoomview(generics.ListCreateAPIView):
     serializer_class = ClassRoomSerializer
     permission_classes = [IsAdminRole]
     
+    def perform_create(self, serializer):
+        classroom = serializer.save()
+        generate_session(classroom)
     
+    
+class TeacherSessionsView(generics.ListAPIView):
+    serializer_class = ClassSessionSerializer
+    permission_classes = [IsTeacherRole]
+
+    def get_queryset(self):
+        user = self.request.user
+        return ClassSession.objects.filter(
+            classRoom__teacher=user.teacher,
+        ).order_by('date')
 
 class ClassRoomView(generics.ListAPIView):
     queryset = ClassRoom.objects.all()
