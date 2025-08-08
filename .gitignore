@@ -24,3 +24,4 @@ dist-ssr
 *.sw?
 
 credentials.json
+token.json
