@@ -2,7 +2,7 @@ import datetime
 from django.shortcuts import render
 
 from rest_framework import generics, status
-from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.views import TokenObtainPairView as SimpleJWTTokenObtainPairView
 from django.contrib.auth import get_user_model
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -35,8 +35,23 @@ class TeacherListView(generics.ListAPIView):
     serializer_class = TeacherSerializer
     permission_classes = [IsAdminRole]
 
-class TokenObtainPairView(TokenObtainPairView):
+class CustomTokenObtainPairView(SimpleJWTTokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
+    
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.user  
+
+        if hasattr(user, 'teacher'):
+            classrooms = ClassRoom.objects.filter(teacher=user.teacher)
+            for classroom in classrooms:
+                if not classroom.sessions.exists():
+                    print(f"Generating sessions for classroom {classroom.id}")
+                    generate_session(classroom)
+
+        response = super().post(request, *args, **kwargs)
+        return response
 
     
 class CreateChildView(generics.CreateAPIView):
@@ -121,10 +136,6 @@ class CreateClassRoomview(generics.ListCreateAPIView):
     queryset = ClassRoom.objects.all()
     serializer_class = ClassRoomSerializer
     permission_classes = [IsAdminRole]
-    
-    def perform_create(self, serializer):
-        classroom = serializer.save()
-        generate_session(classroom)
     
     
 class TeacherSessionsView(generics.ListAPIView):

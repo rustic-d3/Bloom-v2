@@ -72,7 +72,7 @@ class ClassRoom(models.Model):
         return self.title
     
 class ClassSession(models.Model):
-    classRoom = models.ForeignKey(ClassRoom, on_delete=models.CASCADE, related_name='session')
+    classRoom = models.ForeignKey(ClassRoom, on_delete=models.CASCADE, related_name='sessions')
     date = models.DateField()
     meetUrl = models.URLField( null=True, blank=True)
     isCanceled = models.BooleanField()
