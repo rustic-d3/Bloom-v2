@@ -17,26 +17,41 @@ SCOPES = ["https://www.googleapis.com/auth/calendar"]
 
 def generate_meet_link(classroom, current_date, start_time, end_time):
     creds = None
+    token_path = "token.json"
+    credentials_path = "credentials.json"
 
-    if os.path.exists("token.json"):
-        creds = Credentials.from_authorized_user_file("token.json", SCOPES)
+    if os.path.exists(token_path):
+        try:
+            creds = Credentials.from_authorized_user_file(token_path, SCOPES)
+        except ValueError:
+            creds = None
+
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
-            flow = InstalledAppFlow.from_client_secrets_file("credentials.json", SCOPES)
-            creds = flow.run_local_server(port=8080)
-        with open("token.json", "w") as token:
-            token.write(creds.to_json())
+            flow = InstalledAppFlow.from_client_secrets_file(
+                credentials_path,
+                SCOPES
+            )
+            creds = flow.run_local_server(
+                port=8080,
+                access_type='offline',
+                prompt='consent'
+            )
+        with open(token_path, "w") as token_file:
+            token_file.write(creds.to_json())
 
     try:
         service = build("calendar", "v3", credentials=creds)
 
-        # Combine date and time into full datetime objects
         start_datetime = datetime.datetime.combine(current_date, start_time)
         end_datetime = datetime.datetime.combine(current_date, end_time)
 
-        # Ensure timezone is UTC or use your own, like "Europe/Bucharest"
+        if end_datetime <= start_datetime:
+            print("Error: end_time must be after start_time")
+            return None
+
         timezone = "UTC"
 
         event = {
@@ -62,9 +77,11 @@ def generate_meet_link(classroom, current_date, start_time, end_time):
             body=event,
             conferenceDataVersion=1
         ).execute()
+        print("Created event:", created_event)
 
-        print('Google Meet link:', created_event.get('hangoutLink'))
-        return created_event.get('hangoutLink')
+        meet_link = created_event.get('hangoutLink')
+        print('Google Meet link:', meet_link)
+        return meet_link
 
     except HttpError as error:
         print(f"An error occurred: {error}")

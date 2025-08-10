@@ -5,11 +5,13 @@ import "../styles/TeacherDashboardPage.css";
 import api from "../api";
 import { ACCESS_TOKEN } from "../constants";
 import { jwtDecode } from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
 function TeacherDashboard() {
   const [userId, setUserId] = useState(null);
   const [teacher, setTeacher] = useState([]);
   const [classRooms, setClassRooms] = useState([])
+ 
 
   useEffect(() => {
     const getUserId = async () => {
@@ -73,6 +75,9 @@ function TeacherDashboard() {
               </div>
               <div className="date">
                 {session.date}
+              </div>
+              <div>
+                <button onClick={() => window.location.href = session.meetUrl}>Enter classroom</button>
               </div>
             </div>)
           }
