@@ -75,20 +75,23 @@ class TeacherSerializer(serializers.ModelSerializer):
         }
 
 class ChildSerializer(serializers.ModelSerializer):
+    
     class Meta:
         model = Child
         fields = ["id", "name", "age", "personal_id", "parent_name"]
         
 
 class ClassRoomSerializer(serializers.ModelSerializer):
+    children = ChildSerializer(many=True, read_only=True)
     class Meta:
         model = ClassRoom
         fields = ["id", "title", "subject", "type", "teacher", "children", "start_date", "end_date", "start_time", "end_time", "repeat_days"]
         
 class ClassRoomMiniSerializer(serializers.ModelSerializer):
+    children = ChildSerializer(many=True, read_only=True)
     class Meta:
         model = ClassRoom
-        fields = ['id', 'title', 'subject', "type", 'start_time', 'end_time']
+        fields = ['id', 'title', 'subject', "children", "type", 'start_time', 'end_time']
 
 class ClassSessionSerializer(serializers.ModelSerializer):
     classRoom = ClassRoomMiniSerializer()

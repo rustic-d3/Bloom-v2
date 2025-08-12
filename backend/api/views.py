@@ -127,6 +127,10 @@ class TeacherClassroomsView(generics.ListAPIView):
         teacher = self.request.user.teacher
         return teacher.classes.all()
 
+class AllClassroomsView(generics.ListAPIView):
+    queryset = ClassRoom.objects.all()
+    serializer_class = ClassRoomSerializer
+    permission_classes = [IsAdminRole]
     
     
     

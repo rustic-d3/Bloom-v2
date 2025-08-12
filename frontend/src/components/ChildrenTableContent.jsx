@@ -3,9 +3,11 @@ import "../styles/TableContent.css";
 import api from "../api";
 import { useEffect } from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function ChildrenTableContent({ search }) {
+
+  const navigate = useNavigate();
   const [children, setChildren] = useState([]);
   const [selected, setSelected] = useState(null);
   const [editedChild, setEditedChild] = useState(null);
@@ -62,6 +64,11 @@ function ChildrenTableContent({ search }) {
 
   function handleInputChange(e, field) {
     setEditedChild({ ...editedChild, [field]: e.target.value });
+  }
+
+  function handleSearch(child){
+    navigate('/allClassrooms', { state: { child } })
+    
   }
 
   return (
@@ -138,6 +145,9 @@ function ChildrenTableContent({ search }) {
                           <img src="/images/edit.png" alt="" className="icon" />
                         </button>
                       )}
+                      <button onClick={() => handleSearch(child)}>
+                          <img src="/images/search.png" alt="" className="icon" />
+                      </button>
                       <button onClick={() => handleDelete(child)}>
                         <img src="/images/delete.png" alt="" className="icon" />
                       </button>

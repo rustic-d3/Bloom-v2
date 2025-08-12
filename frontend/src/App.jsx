@@ -13,6 +13,7 @@ import AddChildPage from "./pages/AddChildPage";
 import RegisterPage from "./pages/RegisterPage";
 import TeacherDashboard from "./pages/TeacherDashboard";
 import ParenDashboard from "./pages/ParentDashboard"
+import AllClassroomsPage from "./pages/AllClassroomsPage";
 
 function Logout() {
   localStorage.clear();
@@ -51,6 +52,14 @@ function App() {
             element={
               <AdminProtected>
                 <AddChildPage />
+              </AdminProtected>
+            }
+          />
+          <Route
+            path="/allClassrooms"
+            element={
+              <AdminProtected>
+                <AllClassroomsPage />
               </AdminProtected>
             }
           />

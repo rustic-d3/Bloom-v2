@@ -3,6 +3,8 @@ import "../styles/ClassroomCard.css";
 import { useState, useEffect } from "react";
 
 export default function ClassroomCard({ session }) {
+
+  
   function getCountdown(dateString, timeString) {
     const targetDate = new Date(`${dateString}T${timeString}`);
     const now = new Date();
@@ -60,14 +62,24 @@ export default function ClassroomCard({ session }) {
 
         <div className="student-lists">
           <ul>
-            <li>Kid 1 <button className="alarmButton"><img src="/images/alert.png" alt="" /></button></li> 
-            <li>Kid 2 <button className="alarmButton"><img src="/images/alert.png" alt="" /></button></li>
-            <li>Kid 3 <button className="alarmButton"><img src="/images/alert.png" alt="" /></button></li>
+            {session.classRoom.children.slice(0, 3).map((child) => (
+              <li key={child.id}>
+                {child.name}{" "}
+                <button className="alarmButton">
+                  <img src="/images/alert.png" alt="" />
+                </button>
+              </li>
+            ))}
           </ul>
           <ul>
-            <li>Kid 4 <button className="alarmButton"><img src="/images/alert.png" alt="" /></button></li>
-            <li>Kid 5 <button className="alarmButton"><img src="/images/alert.png" alt="" /></button></li>
-            <li>Kid 6 <button className="alarmButton"><img src="/images/alert.png" alt="" /></button></li>
+            {session.classRoom.children.slice(3, 6).map((child) => (
+              <li key={child.id}>
+                {child.name}{" "}
+                <button className="alarmButton">
+                  <img src="/images/alert.png" alt="" />
+                </button>
+              </li>
+            ))}
           </ul>
         </div>
 
