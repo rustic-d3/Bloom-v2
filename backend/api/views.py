@@ -10,7 +10,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from .serializers import ClassSessionSerializer, UserSerializer, NoteSerializer, ClassRoomSerializer, CustomTokenObtainPairSerializer, TeacherSerializer, ParentSerializer, ChildSerializer
 from .models import ClassSession, Note, ClassRoom, Teacher, Parent, Child
 from .permissions import IsAdminRole, IsTeacherRole, IsParentRole
-from .services import generate_meet_link, generate_session
+from .services import generate_meet_link, generate_session, makeCall
 
 
 User = get_user_model()
@@ -173,8 +173,14 @@ class ClassRoomView(generics.ListAPIView):
     serializer_class = ClassRoomSerializer
     permission_classes = [IsAdminRole]
 
-    # def get_queryset(self):
-    #     ClassRoom.objects.filter(end_time__lt = datetime.date.today()).delete()
-    #     return ClassRoom.objects.all()
+class SendNotification(APIView):
+    def post(self, request):
+        child_id = request.data.get('child_id')
+        child = Child.objects.get(id = child_id)
+        parent = child.parent_name
+        print(parent.phone)
+        makeCall(parent.phone)
+
+        return Response({"message": f"Child '{child.name}' has a Parent with id '{parent}'"})
 
 

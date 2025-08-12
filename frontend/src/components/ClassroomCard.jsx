@@ -1,8 +1,22 @@
 import React from "react";
 import "../styles/ClassroomCard.css";
 import { useState, useEffect } from "react";
+import api from "../api";
 
 export default function ClassroomCard({ session }) {
+
+  async function handleNotification(child_id){
+    try{
+      const res = await api.post('api/sendNotification/', 
+        {
+          child_id: child_id
+        }
+      )
+    }catch(err){
+      alert("something in wrong!");
+      console.log("something is wrong:", err);
+    }
+  }
 
   
   function getCountdown(dateString, timeString) {
@@ -65,7 +79,7 @@ export default function ClassroomCard({ session }) {
             {session.classRoom.children.slice(0, 3).map((child) => (
               <li key={child.id}>
                 {child.name}{" "}
-                <button className="alarmButton">
+                <button className="alarmButton" onClick={()=>handleNotification(child.id)}>
                   <img src="/images/alert.png" alt="" />
                 </button>
               </li>
@@ -75,7 +89,7 @@ export default function ClassroomCard({ session }) {
             {session.classRoom.children.slice(3, 6).map((child) => (
               <li key={child.id}>
                 {child.name}{" "}
-                <button className="alarmButton">
+                <button className="alarmButton" onClick={()=>handleNotification(child.id)}>
                   <img src="/images/alert.png" alt="" />
                 </button>
               </li>

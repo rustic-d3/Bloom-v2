@@ -12,6 +12,11 @@ from google.auth.transport.requests import Request
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
+import os
+from twilio.rest import Client
+from dotenv import load_dotenv
+load_dotenv()
+
 SCOPES = ["https://www.googleapis.com/auth/calendar"]
 
 
@@ -113,5 +118,19 @@ def generate_session(classroom: ClassRoom):
         current_date += timedelta(days=1)
 
     return sessions_created
+
+
+
+def makeCall(phone_number):
+    account_sid = os.environ["TWILIO_ACCOUNT_SID"]
+    auth_token = os.environ["TWILIO_AUTH_TOKEN"]
+    client = Client(account_sid, auth_token)
+
+    call = client.calls.create(
+        from_="+15164477892",
+        to=phone_number,
+        url="https://remainder-5992.twil.io/remainder",
+    )
+    print(call.sid)
         
     
