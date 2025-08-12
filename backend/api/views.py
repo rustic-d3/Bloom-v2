@@ -2,6 +2,7 @@ import datetime
 from django.shortcuts import render
 
 from rest_framework import generics, status
+from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView as SimpleJWTTokenObtainPairView
 from django.contrib.auth import get_user_model
 from rest_framework.response import Response
@@ -68,6 +69,21 @@ class ChildUpdateview(generics.RetrieveUpdateDestroyAPIView):
     queryset = Child.objects.all()
     serializer_class = ChildSerializer
     permission_classes = [AllowAny]
+    
+class AssignChildToClass(APIView):
+    def post(self, request):
+        child_id = request.data.get('child_id')
+        classroom_id = request.data.get('classroom_id')
+        try:
+            child = Child.objects.get(id=child_id)
+            classroom = ClassRoom.objects.get(id=classroom_id)
+        except(Child.DoesNotExist, ClassRoom.DoesNotExist):
+            return Response({"error": "Child or Class not found"}, status=status.HTTP_404_NOT_FOUND)
+        classroom.children.add(child)
+        classroom.save()
+        return Response({"message": f"Child '{child.name}' assigned to class '{classroom.title}'"})
+    
+    
 
 class ParentUpdateview(generics.RetrieveUpdateDestroyAPIView):
     queryset = Parent.objects.all()

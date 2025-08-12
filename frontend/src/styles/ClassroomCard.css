@@ -1,0 +1,157 @@
+.classroom-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  font-family: Arial, sans-serif;
+  width: 80%;
+}
+
+.title-main {
+  color: white;
+  background: linear-gradient(to right, #b45bdb, #8b4bc1);
+  width: 100%;
+  text-align: center;
+  padding: 1rem 0;
+  font-size: 1.8rem;
+  font-weight: var(--font-700);
+}
+
+.class-card {
+  background: var(--clr-light);
+  border-radius: 10px;
+  overflow: hidden;
+  max-width: 350px;
+  width: 100%;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+.class-header {
+  background: #5d2e8c;
+  color: white;
+  padding: 1rem;
+  font-size: 1.3rem;
+  font-weight: var(--font-700);
+}
+
+.class-info {
+  display: flex;
+  justify-content: space-around;
+  margin: 1rem 0;
+  font-weight: var(--font-700);
+  font-size: 1rem;
+}
+
+.circle {
+  background: #5d2e8c;
+  color: white;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  text-align: center;
+  padding: 5px;
+}
+
+.student-lists {
+  display: flex;
+  justify-content: center;
+  gap: 4rem; /* space between the two columns */
+  margin-bottom: 1rem;
+}
+
+.student-lists ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.student-lists li {
+  display: flex;
+  justify-content: space-between; /* push text left, button right */
+  align-items: center;
+  margin: 0.2rem 0;
+  font-weight: var(--font-700);
+  width: 120px; /* fixed width for consistent alignment */
+}
+
+.alarmButton {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.countdown {
+  display: flex;
+  justify-content: space-around;
+  margin: 0.5rem 0;
+  font-weight: bold;
+}
+
+.countdown span {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.countdown small {
+  font-weight: normal;
+  font-size: 0.7rem;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.enter-btn,
+.replace-btn {
+  background: #5d2e8c;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.replace-btn {
+  background: #9b6fce;
+}
+
+.enter-btn:hover,
+.replace-btn:hover {
+  opacity: 0.85;
+}
+
+.alarmButton{
+    background: none;
+    border: none;
+    outline: none;
+}
+
+@media (max-width: 500px) {
+  .class-info {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .student-lists {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .buttons {
+    flex-direction: column;
+  }
+}

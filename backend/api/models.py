@@ -36,6 +36,8 @@ class Child(models.Model):
 
     def __str__(self):
         return self.name
+    
+    
 
 class Parent(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)

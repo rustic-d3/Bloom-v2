@@ -6,6 +6,7 @@ import api from "../api";
 import { ACCESS_TOKEN } from "../constants";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
+import ClassroomCard from "../components/ClassroomCard";
 
 function TeacherDashboard() {
   const [userId, setUserId] = useState(null);
@@ -69,17 +70,9 @@ function TeacherDashboard() {
 
         <div className="classRooms">
           {classRooms.map((session)=>{
-            return (<div key={session.id} className="classRoom">
-              <div className="title">
-                {session.classRoom.title}
-              </div>
-              <div className="date">
-                {session.date}
-              </div>
-              <div>
-                <button onClick={() => window.location.href = session.meetUrl}>Enter classroom</button>
-              </div>
-            </div>)
+            return (
+              <ClassroomCard key={session.id} session={session} />
+            )
           }
         )}
           

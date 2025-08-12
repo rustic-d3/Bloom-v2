@@ -10,6 +10,7 @@
 .main-section {
   padding-top: 2rem;
   flex: 1 1 100%;
+  margin: 0;
 }
 
 .hero {
@@ -21,7 +22,7 @@
 .classRooms {
   flex: 1 1 400px; 
   min-height: 300px;
-  background: var(--gradient-containers-1);
+  background: var(--gradient-containers-2);
   border-radius: 8px;
   justify-content: center;
   align-items: center;
