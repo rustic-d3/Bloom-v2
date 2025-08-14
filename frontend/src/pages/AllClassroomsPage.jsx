@@ -2,6 +2,7 @@ import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import GroupCard from "../components/GroupCard";
 import api from "../api";
+import Navbar from "../components/Navbar";
 
 function AllClassroomsPage() {
   const [classrooms, setClassrooms] = useState([]);
@@ -28,6 +29,7 @@ function AllClassroomsPage() {
 
   return (
     <>
+      <Navbar></Navbar>
       {classrooms.map((classroom) => {
         return <GroupCard key={classroom.id} classroom={classroom} child_id={child.id} />;
       })}

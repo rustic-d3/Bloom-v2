@@ -2,8 +2,11 @@ import React from "react";
 import "../styles/ClassroomCard.css";
 import { useState, useEffect } from "react";
 import api from "../api";
+import {useNavigate} from 'react-router'
+
 
 export default function GroupCard({ classroom, child_id }) {
+  const navigate = useNavigate()
   async function assignChildToClass() {
     const data = {
       classroom_id: classroom.id,
@@ -13,6 +16,7 @@ export default function GroupCard({ classroom, child_id }) {
     try {
       const res = await api.post("api/assign-child-to-class/", data);
       alert(res.data.message);
+      navigate('/')
     } catch (err) {
       console.error("Error assigning child to class:", err);
       alert("An error occurred");

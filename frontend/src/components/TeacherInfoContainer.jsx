@@ -1,6 +1,8 @@
+import { useNavigate } from "react-router-dom";
 import "../styles/TeacherInfoContainer.css";
 
 function TeacherInfoContainer({ teacher }) {
+  const navigate = useNavigate()
   return (
     <div className="mainSection">
       <div className="photo-section">
@@ -21,7 +23,7 @@ function TeacherInfoContainer({ teacher }) {
             </p>
           </div>
           <div className="buttonSection">
-            <button>
+            <button onClick={()=>{navigate('/availability')}}>
               <img src="/images/calendar.png" alt="" /> Set availability
             </button>
             <button>

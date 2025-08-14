@@ -1,0 +1,95 @@
+.availability-schedule-time-field {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 0.5rem;
+}
+
+.availability-schedule-time-input {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.availability-schedule-time-input input {
+    width: 30%;
+    min-width: 70px; /* keeps inputs usable on small screens */
+}
+
+.availability-schedule-time-input span {
+    background-color: aliceblue;
+    width: 10px;
+    height: 2px;
+}
+
+.availability-schedule-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.availability-schedule-circle {
+    color: var(--clr-dark);
+    background-color: var(--clr-light);
+    width: 2.5rem;
+    height: 2.5rem;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.availability-schedule-option-btn {
+    background: none;
+    border: none;
+    height: 100%;
+    cursor: pointer;
+}
+
+.availability-schedule-option-btn img {
+    height: 1.5rem;
+}
+
+/* Tablet adjustments */
+@media (max-width: 768px) {
+    .availability-schedule-time-field {
+        justify-content: center;
+    }
+
+    .availability-schedule-time-input input {
+        width: 40%;
+    }
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+    .availability-schedule-time-field {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .availability-schedule-time-input {
+        justify-content: center;
+    }
+
+    .availability-schedule-time-input input {
+        width: 80%;
+    }
+
+    .availability-schedule-circle {
+        width: 2rem;
+        height: 2rem;
+        font-size: 0.9rem;
+    }
+
+    .availability-schedule-option-btn img {
+        height: 1.2rem;
+    }
+}

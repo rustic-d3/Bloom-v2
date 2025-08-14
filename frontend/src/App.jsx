@@ -14,6 +14,7 @@ import RegisterPage from "./pages/RegisterPage";
 import TeacherDashboard from "./pages/TeacherDashboard";
 import ParenDashboard from "./pages/ParentDashboard"
 import AllClassroomsPage from "./pages/AllClassroomsPage";
+import SetAvailabilityPage from "./pages/SetAvailabilityPage";
 
 function Logout() {
   localStorage.clear();
@@ -84,6 +85,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <ParenDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/availability"
+            element={
+              <ProtectedRoute>
+                <SetAvailabilityPage />
               </ProtectedRoute>
             }
           />

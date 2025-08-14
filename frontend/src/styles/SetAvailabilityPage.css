@@ -1,0 +1,97 @@
+@import './variables.css';
+
+.availability-content {
+    display: flex;
+    justify-content: space-around;
+    gap: 2rem;
+    flex-wrap: wrap; /* allow wrapping */
+}
+
+.availability-schedule {
+    width: 40%;
+    background: var(--gradient-containers-2);
+    border-radius: 2%;
+    display: flex;
+    justify-content: space-around;
+    padding: 2rem;
+    min-width: 300px; /* prevent too small */
+    box-sizing: border-box;
+}
+
+.availability-card {
+    width: 40%;
+    min-width: 300px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+}
+
+.availability-back {
+    position: absolute;
+    border: none;
+    background: none;
+    right: 5%;
+}
+
+.availability-heading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-bottom: 5%;
+}
+
+.availability-heading h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.availability-back img {
+    height: 2rem;
+    width: auto;
+}
+
+.availability-main {
+    margin-top: 5%;
+    gap: 10%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+    .availability-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .availability-card,
+    .availability-schedule {
+        width: 90%;
+    }
+
+    .availability-heading h1 {
+        font-size: 2rem;
+    }
+
+    .availability-back {
+        right: 2%;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .availability-heading h1 {
+        font-size: 1.6rem;
+    }
+
+    .availability-card,
+    .availability-schedule {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .availability-back img {
+        height: 1.5rem;
+    }
+}
