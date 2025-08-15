@@ -1,8 +1,43 @@
 import { useNavigate } from "react-router-dom";
 import "../styles/TeacherInfoContainer.css";
 
-function TeacherInfoContainer({ teacher }) {
-  const navigate = useNavigate()
+function TeacherInfoContainer({ teacher, isTeacherAccount }) {
+  function renderButtons() {
+    if (isTeacherAccount) {
+      return (
+        <div className="buttonSection">
+          <button
+            onClick={() => {
+              navigate("/availability");
+            }}
+          >
+            <img src="/images/calendar.png" alt="" /> Set availability
+          </button>
+          <button>Set description</button>
+        </div>
+      );
+    } else {
+      return (
+        <div className="buttonSection">
+          <button
+            onClick={() => {
+              navigate("/set-lesson");
+            }}
+          >
+            <img src="/images/calendar.png" alt="" /> Set lesson
+          </button>
+          <button
+            onClick={() => {
+              navigate("/child-feedabck");
+            }}
+          >
+            Child's Feedback{" "}
+          </button>
+        </div>
+      );
+    }
+  }
+  const navigate = useNavigate();
   return (
     <div className="mainSection">
       <div className="photo-section">
@@ -22,14 +57,7 @@ function TeacherInfoContainer({ teacher }) {
               repudiandae?
             </p>
           </div>
-          <div className="buttonSection">
-            <button onClick={()=>{navigate('/availability')}}>
-              <img src="/images/calendar.png" alt="" /> Set availability
-            </button>
-            <button>
-              Set description
-            </button>
-          </div>
+          {renderButtons()}
         </div>
       </div>
     </div>

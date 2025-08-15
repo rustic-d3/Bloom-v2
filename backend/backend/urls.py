@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from api.views import AllClassroomsView, AssignChildToClass, AvailabilityCreateAPIView, ChildDeleteview, ChildUpdateview, CreateUserView, ParentDeleteview, ParentUpdateview, SendNotification, TeacherClassroomsView, TeacherDeleteview, TeacherObtainView, TeacherSessionsView, TeacherUpdateview, ListUserView, TeacherListView, ParentListView, CreateChildView, Childview
+from api.views import AllChildClassroomView, AllClassroomsView, AllTeachersView, AssignChildToClass, AvailabilityCreateAPIView, AvailabilityView, ChildDeleteview, ChildUpdateview, CreateUserView, ParentDeleteview, ParentUpdateview, SendNotification, TeacherClassroomsView, TeacherDeleteview, TeacherObtainView, TeacherSessionsView, TeacherUpdateview, ListUserView, TeacherListView, ParentListView, CreateChildView, Childview
 from rest_framework_simplejwt.views import TokenRefreshView
 from api.views import CustomTokenObtainPairView
 
@@ -44,6 +44,9 @@ urlpatterns = [
     path('api/assign-child-to-class/', AssignChildToClass.as_view(), name='assign child to class'),
     path('api/get/all-classrooms/', AllClassroomsView.as_view(), name='get all classrooms'),
     path('api/sendNotification/', SendNotification.as_view(), name="Send Notification"),
-    path('availabilities/create/', AvailabilityCreateAPIView.as_view(), name='create-availability'),
+    path('api/availabilities/create/', AvailabilityCreateAPIView.as_view(), name='create-availabilities'),
+    path('api/availabilities/view/', AvailabilityView.as_view(), name='view-availabilities'),
+    path('api/allTeachers/view/', AllTeachersView.as_view(), name='view-all-teachers'),
+    path('api/get/children/classrooms/', AllChildClassroomView.as_view(), name='view-all-session-for-children'),
     
 ]

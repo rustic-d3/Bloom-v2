@@ -11,7 +11,8 @@ import ClassroomCard from "../components/ClassroomCard";
 function TeacherDashboard() {
   const [userId, setUserId] = useState(null);
   const [teacher, setTeacher] = useState([]);
-  const [classRooms, setClassRooms] = useState([])
+  const [isTeacherAccount, setIsTeacherAccount] = useState(null);
+  const [classRooms, setClassRooms] = useState([]);
  
 
   useEffect(() => {
@@ -22,6 +23,7 @@ function TeacherDashboard() {
           const decoded = jwtDecode(token);
           console.log(decoded);
           setUserId(decoded.user_id);
+          decoded.role == 'teacher'? setIsTeacherAccount(true) : setIsTeacherAccount(false)
         } catch (err) {
           console.log("an error occured");
         }
@@ -65,7 +67,7 @@ function TeacherDashboard() {
       <Navbar></Navbar>
       <div className="container main-section">
         <div className="hero">
-          <TeacherInfoContainer teacher={teacher} />
+          <TeacherInfoContainer teacher={teacher} isTeacherAccount={isTeacherAccount} />
         </div>
 
         <div className="classRooms">

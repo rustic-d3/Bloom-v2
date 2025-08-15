@@ -44,7 +44,7 @@ function Navbar() {
               </a>
             </li>
             <li>
-              <a className="link" href="#">
+              <a className="link" href="/availability">
                 Availability
               </a>
             </li>

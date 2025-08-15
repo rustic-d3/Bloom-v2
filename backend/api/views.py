@@ -7,7 +7,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView as SimpleJWTToken
 from django.contrib.auth import get_user_model
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from .serializers import ClassSessionSerializer, UserSerializer, NoteSerializer, ClassRoomSerializer, CustomTokenObtainPairSerializer, TeacherSerializer, ParentSerializer, ChildSerializer
+from .serializers import AvailabilitySerializer, ClassSessionSerializer, UserSerializer, NoteSerializer, ClassRoomSerializer, CustomTokenObtainPairSerializer, TeacherSerializer, ParentSerializer, ChildSerializer
 from .models import Availability, ClassSession, Note, ClassRoom, Teacher, Parent, Child
 from .permissions import IsAdminRole, IsTeacherRole, IsParentRole
 from .services import generate_meet_link, generate_session, makeCall
@@ -188,45 +188,67 @@ class AvailabilityCreateAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
-        user = request.user
-        try:
-            teacher = Teacher.objects.get(user=user)
-        except Teacher.DoesNotExist:
-            return Response({"error": "Teacher not found."}, status=status.HTTP_404_NOT_FOUND)
+        teacher = request.user.teacher
 
-        start_time = request.data.get("start_time")
-        end_time = request.data.get("end_time")
-        day_of_week = request.data.get("day_of_week")
+        data = request.data
+        if not isinstance(data, list) or not data:
+            return Response({"error": "Payload must be a non-empty list"}, status=status.HTTP_400_BAD_REQUEST)
 
-        if not all([start_time, end_time, day_of_week]):
-            return Response({"error": "Missing required fields."}, status=status.HTTP_400_BAD_REQUEST)
+        current_week_number = datetime.date.today().isocalendar()[1]  
+        availabilities = []
 
-        created_slots = []
-        for week_number in range(1, 5):  
-            exists = Availability.objects.filter(
-                teacher=teacher,
-                week_number=week_number,
-                day_of_week=day_of_week,
-                start_time=start_time,
-                end_time=end_time
-            ).exists()
+        for slot in data:
+            week_day = slot.get("week_day")
+            start_time = slot.get("start_time")
+            end_time = slot.get("end_time")
 
-            if not exists:
-                slot = Availability.objects.create(
-                    teacher=teacher,
-                    week_number=week_number,
-                    day_of_week=day_of_week,
-                    start_time=start_time,
-                    end_time=end_time
+            if not week_day or not start_time or not end_time:
+                return Response({"error": "Each slot must have week_day, start_time, end_time"},
+                                status=status.HTTP_400_BAD_REQUEST)
+
+
+            for i in range(4):
+                week_number = (current_week_number + i - 1) % 53 + 1  
+                availabilities.append(
+                    Availability(
+                        teacher=teacher,
+                        week_number=week_number,
+                        day_of_week=week_day,
+                        start_time=start_time,
+                        end_time=end_time
+                    )
                 )
-                created_slots.append({
-                    "week_number": week_number,
-                    "day_of_week": day_of_week,
-                    "start_time": start_time,
-                    "end_time": end_time
-                })
 
-        return Response({
-            "created_slots": created_slots,
-            "message": f"{len(created_slots)} availability slots created for 4 weeks."
-        }, status=status.HTTP_201_CREATED)
+        Availability.objects.bulk_create(availabilities, ignore_conflicts=True)
+
+        return Response({"message": "Availabilities created for next 4 weeks"}, status=status.HTTP_201_CREATED)
+      
+      
+class AvailabilityView(generics.ListAPIView):
+    queryset = Availability.objects.all()
+    serializer_class = AvailabilitySerializer 
+    permission_classes= [AllowAny] 
+
+class AllTeachersView(generics.ListAPIView):
+    serializer_class = TeacherSerializer
+    permission_classes = [IsParentRole]
+    
+    def get_queryset(self):
+        parent = self.request.user.parent
+        return Teacher.objects.filter(
+            classes__children__in=parent.children.all()
+        ).distinct()
+        
+class AllChildClassroomView(generics.ListAPIView):
+    serializer_class = ClassSessionSerializer
+    permission_classes = [IsParentRole]
+
+    def get_queryset(self):
+        parent = self.request.user.parent  
+        children = parent.children.all()   
+
+
+        return ClassSession.objects.filter(
+            classRoom__children__in=children
+        ).order_by('date').distinct()
+    
