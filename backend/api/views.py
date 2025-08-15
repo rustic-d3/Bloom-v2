@@ -8,7 +8,7 @@ from django.contrib.auth import get_user_model
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from .serializers import ClassSessionSerializer, UserSerializer, NoteSerializer, ClassRoomSerializer, CustomTokenObtainPairSerializer, TeacherSerializer, ParentSerializer, ChildSerializer
-from .models import ClassSession, Note, ClassRoom, Teacher, Parent, Child
+from .models import Availability, ClassSession, Note, ClassRoom, Teacher, Parent, Child
 from .permissions import IsAdminRole, IsTeacherRole, IsParentRole
 from .services import generate_meet_link, generate_session, makeCall
 
@@ -184,3 +184,49 @@ class SendNotification(APIView):
         return Response({"message": f"Child '{child.name}' has a Parent with id '{parent}'"})
 
 
+class AvailabilityCreateAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        user = request.user
+        try:
+            teacher = Teacher.objects.get(user=user)
+        except Teacher.DoesNotExist:
+            return Response({"error": "Teacher not found."}, status=status.HTTP_404_NOT_FOUND)
+
+        start_time = request.data.get("start_time")
+        end_time = request.data.get("end_time")
+        day_of_week = request.data.get("day_of_week")
+
+        if not all([start_time, end_time, day_of_week]):
+            return Response({"error": "Missing required fields."}, status=status.HTTP_400_BAD_REQUEST)
+
+        created_slots = []
+        for week_number in range(1, 5):  
+            exists = Availability.objects.filter(
+                teacher=teacher,
+                week_number=week_number,
+                day_of_week=day_of_week,
+                start_time=start_time,
+                end_time=end_time
+            ).exists()
+
+            if not exists:
+                slot = Availability.objects.create(
+                    teacher=teacher,
+                    week_number=week_number,
+                    day_of_week=day_of_week,
+                    start_time=start_time,
+                    end_time=end_time
+                )
+                created_slots.append({
+                    "week_number": week_number,
+                    "day_of_week": day_of_week,
+                    "start_time": start_time,
+                    "end_time": end_time
+                })
+
+        return Response({
+            "created_slots": created_slots,
+            "message": f"{len(created_slots)} availability slots created for 4 weeks."
+        }, status=status.HTTP_201_CREATED)

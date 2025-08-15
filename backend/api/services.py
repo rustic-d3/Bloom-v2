@@ -1,4 +1,4 @@
-from .models import ClassRoom, ClassSession
+from .models import Availability, ClassRoom, ClassSession
 from datetime import timedelta
 import datetime
 import os.path
@@ -133,4 +133,15 @@ def makeCall(phone_number):
     )
     print(call.sid)
         
-    
+def create_availability(teacher, availability):
+    days = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]
+
+    for week in range(1, 5):
+        for day in days:
+            Availability.objects.create(
+                teacher=teacher,
+                week_number=week,
+                day_of_week=day,
+                start_time=availability.start_time,
+                end_time= availability.end_time
+            )

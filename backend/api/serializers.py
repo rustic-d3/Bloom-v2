@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
-from .models import ClassSession, Note, CustomUser, Teacher, Child, ClassRoom, Admin, Parent
+from .models import Availability, ClassSession, Note, CustomUser, Teacher, Child, ClassRoom, Admin, Parent
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 User = get_user_model()
@@ -109,3 +109,7 @@ class AdminSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             "user": {"read_only": True}
         }
+class AvailabilitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Availability
+        fields = ["id", "teacher", "week_number", "day_of_week", "start_time", "end_time"]

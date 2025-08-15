@@ -27,6 +27,30 @@ class Teacher(models.Model):
 
     def __str__(self):
         return self.name
+    
+class Availability(models.Model):
+    DAYS_OF_WEEK = [
+        ("MON", "MON"),
+        ("TUE", "TUE"),
+        ("WED", "WED"),
+        ("THU", "THU"),
+        ("FRI", "FRI"),
+        ("SAT", "SAT"),
+        ("SUN", "SUN"),
+    ]
+
+    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, related_name="availabilities")
+    week_number = models.PositiveSmallIntegerField()
+    day_of_week = models.CharField(max_length=3, choices=DAYS_OF_WEEK)
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+
+    class Meta:
+        unique_together = ("teacher", "week_number", "day_of_week", "start_time", "end_time")
+        ordering = ["week_number", "day_of_week", "start_time"]
+
+    def __str__(self):
+        return f"{self.teacher.name} - W{self.week_number} {self.day_of_week} ({self.start_time}-{self.end_time})"
 
 class Child(models.Model):
     name = models.CharField(max_length=100)
