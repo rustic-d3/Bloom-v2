@@ -69,7 +69,8 @@ export default function parentDashboard() {
       <div className="container main-section">
         <div className="hero">
             {teachers.map((teacher)=>{
-                <TeacherInfoContainer key={teacher.id} teacher={teacher} isTeacherAccount={isTeacherAccount} />
+                return(<TeacherInfoContainer key={teacher.id} teacher={teacher} isTeacherAccount={isTeacherAccount} />)
+                
             })}
         </div>
 
@@ -79,10 +80,7 @@ export default function parentDashboard() {
               <ClassroomCard key={session.id} session={session} />
             )
           }
-        )}
-          
-          
-          
+        )}    
         </div>
       </div>
     </>

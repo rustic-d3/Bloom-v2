@@ -81,7 +81,7 @@ class AssignChildToClass(APIView):
             return Response({"error": "Child or Class not found"}, status=status.HTTP_404_NOT_FOUND)
         classroom.children.add(child)
         classroom.save()
-        return Response({"message": f"Child '{child.name}' assigned to class '{classroom.title}'"})
+        return Response({"message": f"Child '{child.name}' assigned to class '{classroom.title} with id {classroom_id}'"})
     
     
 
@@ -156,7 +156,12 @@ class CreateClassRoomview(generics.ListCreateAPIView):
     queryset = ClassRoom.objects.all()
     serializer_class = ClassRoomSerializer
     permission_classes = [IsAdminRole]
-    
+
+class AllSessionsView(generics.ListAPIView):
+    queryset = ClassSession.objects.all()
+    serializer_class = ClassSessionSerializer
+    permission_classes = [AllowAny]
+        
     
 class TeacherSessionsView(generics.ListAPIView):
     serializer_class = ClassSessionSerializer
@@ -241,7 +246,7 @@ class AllTeachersView(generics.ListAPIView):
         
 class AllChildClassroomView(generics.ListAPIView):
     serializer_class = ClassSessionSerializer
-    permission_classes = [IsParentRole]
+    permission_classes = [AllowAny]
 
     def get_queryset(self):
         parent = self.request.user.parent  
