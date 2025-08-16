@@ -115,7 +115,7 @@ class TeacherObtainView(generics.RetrieveAPIView):
         return Teacher.objects.all()
     
     def get_object(self):
-        user_id = self.kwargs['user_id'];
+        user_id = self.kwargs['user_id']
         
         return self.get_queryset().get(user__id=user_id)
 
@@ -161,6 +161,14 @@ class AllSessionsView(generics.ListAPIView):
     queryset = ClassSession.objects.all()
     serializer_class = ClassSessionSerializer
     permission_classes = [AllowAny]
+
+class AllAvailabilitiesView(generics.ListAPIView):
+    serializer_class = AvailabilitySerializer
+    permission_classes = [IsParentRole]
+    
+    def get_queryset(self):
+        teacher_id = self.kwargs['teacher_id']
+        return Availability.objects.filter(teacher_id=teacher_id)
         
     
 class TeacherSessionsView(generics.ListAPIView):

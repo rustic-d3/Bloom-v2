@@ -21,7 +21,8 @@ function TeacherInfoContainer({ teacher, isTeacherAccount }) {
         <div className="buttonSection">
           <button
             onClick={() => {
-              navigate("/set-lesson");
+              navigate("/recovery", {state: teacher});
+              console.log("Navigating with teacher:", teacher);
             }}
           >
             <img src="/images/calendar.png" alt="" /> Set lesson

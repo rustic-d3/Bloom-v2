@@ -64,7 +64,7 @@ function Navbar() {
               </a>
             </li>
             <li>
-              <a className="link" href="#">
+              <a className="link" href="/recovery">
                 Recovery
               </a>
             </li>

@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from api.views import AllChildClassroomView, AllClassroomsView, AllSessionsView, AllTeachersView, AssignChildToClass, AvailabilityCreateAPIView, AvailabilityView, ChildDeleteview, ChildUpdateview, CreateUserView, ParentDeleteview, ParentUpdateview, SendNotification, TeacherClassroomsView, TeacherDeleteview, TeacherObtainView, TeacherSessionsView, TeacherUpdateview, ListUserView, TeacherListView, ParentListView, CreateChildView, Childview
+from api.views import AllAvailabilitiesView, AllChildClassroomView, AllClassroomsView, AllSessionsView, AllTeachersView, AssignChildToClass, AvailabilityCreateAPIView, AvailabilityView, ChildDeleteview, ChildUpdateview, CreateUserView, ParentDeleteview, ParentUpdateview, SendNotification, TeacherClassroomsView, TeacherDeleteview, TeacherObtainView, TeacherSessionsView, TeacherUpdateview, ListUserView, TeacherListView, ParentListView, CreateChildView, Childview
 from rest_framework_simplejwt.views import TokenRefreshView
 from api.views import CustomTokenObtainPairView
 
@@ -49,5 +49,6 @@ urlpatterns = [
     path('api/allTeachers/view/', AllTeachersView.as_view(), name='view-all-teachers'),
     path('api/get/children/classrooms/', AllChildClassroomView.as_view(), name='view-all-session-for-children'),
     path('api/get/allSessions/', AllSessionsView.as_view(), name='view-all-sessions'),
+    path('api/get/allAvailabilities/<int:teacher_id>', AllAvailabilitiesView.as_view(), name='view-all-availabilities'),
     
 ]
