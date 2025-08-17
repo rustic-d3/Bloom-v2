@@ -24,6 +24,7 @@ function AllClassroomsPage() {
 
     sendData()
   }, []);
+  console.log(classrooms)
 
 
 
@@ -31,7 +32,10 @@ function AllClassroomsPage() {
     <>
       <Navbar></Navbar>
       {classrooms.map((classroom) => {
-        return <GroupCard key={classroom.id} classroom={classroom} child_id={child.id} />;
+        if (classroom.session_type == 'Course'){
+          return <GroupCard key={classroom.id} classroom={classroom} child_id={child.id} />;
+        }
+        
       })}
     </>
   );

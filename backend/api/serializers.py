@@ -85,7 +85,7 @@ class ClassRoomSerializer(serializers.ModelSerializer):
     children = ChildSerializer(many=True, read_only=True)
     class Meta:
         model = ClassRoom
-        fields = ["id", "title", "subject", "type", "teacher", "children", "start_date", "end_date", "start_time", "end_time", "repeat_days"]
+        fields = ["id", "title", "subject", "type", "teacher", "children", "start_date", "end_date", "start_time", "end_time", "session_type", "repeat_days"]
         
 class ClassRoomMiniSerializer(serializers.ModelSerializer):
     children = ChildSerializer(many=True, read_only=True)

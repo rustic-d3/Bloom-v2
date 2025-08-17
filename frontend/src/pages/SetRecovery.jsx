@@ -4,8 +4,10 @@ import { useLocation } from "react-router-dom";
 import { startOfWeek, addDays } from "date-fns";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import { useNavigate } from "react-router-dom";
 
 export default function SetRecovery() {
+  const navigate = useNavigate();
   const [availabilities, setAvailabilities] = useState([]);
   const [apiData, setApiData] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
@@ -68,7 +70,6 @@ export default function SetRecovery() {
       <h1 className="text-2xl font-bold mb-4">Set a recovery lesson</h1>
 
       <div className="flex gap-6">
-        {/* Calendar */}
         <Calendar
           onClickDay={handleDateChange}
           tileDisabled={({ date }) => {
@@ -77,7 +78,6 @@ export default function SetRecovery() {
           }}
         />
 
-        {/* Times list */}
         <div className="flex flex-col justify-center gap-3">
           {availableTimes.length > 0 ? (
             availableTimes.map((time) => (
@@ -95,9 +95,8 @@ export default function SetRecovery() {
         </div>
       </div>
 
-      {/* Footer actions */}
       <div className="flex gap-4 mt-6">
-        <button className="px-4 py-2 bg-gray-400 rounded-xl">Cancel</button>
+        <button className="px-4 py-2 bg-gray-400 rounded-xl" onClick={()=>navigate('/parentDashboard')}>Cancel</button>
         <button className="px-4 py-2 bg-green-500 rounded-xl">Set</button>
       </div>
     </div>

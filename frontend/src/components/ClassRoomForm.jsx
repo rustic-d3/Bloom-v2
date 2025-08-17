@@ -14,6 +14,7 @@ function ClassRoomForm({ route }) {
   const [end_date, setEndDate] = useState("");
   const [start_time, setStartTime] = useState("");
   const [end_time, setEndTime] = useState("");
+  const [session_type, setSessionType] = useState("");
   const [repeat_days, setRepeatDays] = useState("")
 
   const navigate = useNavigate();
@@ -44,6 +45,7 @@ function ClassRoomForm({ route }) {
         end_date,
         start_time,
         end_time,
+        session_type,
         repeat_days
       );
 
@@ -56,6 +58,7 @@ function ClassRoomForm({ route }) {
         end_date,
         start_time,
         end_time,
+        session_type,
         repeat_days
       });
 
@@ -169,6 +172,25 @@ function ClassRoomForm({ route }) {
               <option value="Ro">Ro</option>
               <option value="En">En</option>
               <option value="Ro/En">Ro/En</option>
+            </select>
+          </div>
+        </div>
+        <div className="field">
+          <p className="label">Class Session Type</p>
+
+          <div className="input-field">
+            <img src="/images/user.png" alt="" className="icon" />
+            <select
+              className="form-input"
+              id="session_type"
+              value={session_type || ""}
+              onChange={(e) => setSessionType(e.target.value)}
+            >
+              <option value="" disabled>
+                Select a class session type
+              </option>
+              <option value="Course">Course</option>
+              <option value="Recovery">Recovery</option>
             </select>
           </div>
         </div>
