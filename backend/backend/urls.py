@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from api.views import AllAvailabilitiesView, AllChildClassroomView, AllClassroomsView, AllSessionsView, AllTeachersView, AssignChildToClass, AvailabilityCreateAPIView, AvailabilityView, ChildDeleteview, ChildUpdateview, CreateUserView, ParentDeleteview, ParentUpdateview, SendNotification, TeacherClassroomsView, TeacherDeleteview, TeacherObtainView, TeacherSessionsView, TeacherUpdateview, ListUserView, TeacherListView, ParentListView, CreateChildView, Childview
+from api.views import AllAvailabilitiesView, AllChildClassroomView, AllClassroomsView, AllSessionsView, AllTeachersView, AssignChildToClass, AvailabilityCreateAPIView, AvailabilityView, ChildClassroomsView, ChildDeleteview, ChildUpdateview, ChildrenOfParentView, CreateUserView, ParentDeleteview, ParentObtainView, ParentUpdateview, SendNotification, TeacherClassroomsView, TeacherDeleteview, TeacherObtainView, TeacherSessionsView, TeacherUpdateview, ListUserView, TeacherListView, ParentListView, CreateChildView, Childview
 from rest_framework_simplejwt.views import TokenRefreshView
 from api.views import CustomTokenObtainPairView
 
@@ -40,6 +40,7 @@ urlpatterns = [
     path('api/delete/parent/<int:pk>/', ParentDeleteview.as_view(), name='delete parent'),
     path('api/delete/child/<int:pk>/', ChildDeleteview.as_view(), name='delete child'),
     path('api/get/teacher/<int:user_id>/', TeacherObtainView.as_view(), name='get teacher'),
+    path('api/get/parent/<int:user_id>/', ParentObtainView.as_view(), name='get parent'),
     path('api/get/classrooms/', TeacherSessionsView.as_view(), name='get classrooms'),
     path('api/assign-child-to-class/', AssignChildToClass.as_view(), name='assign child to class'),
     path('api/get/all-classrooms/', AllClassroomsView.as_view(), name='get all classrooms'),
@@ -50,5 +51,7 @@ urlpatterns = [
     path('api/get/children/classrooms/', AllChildClassroomView.as_view(), name='view-all-session-for-children'),
     path('api/get/allSessions/', AllSessionsView.as_view(), name='view-all-sessions'),
     path('api/get/allAvailabilities/<int:teacher_id>', AllAvailabilitiesView.as_view(), name='view-all-availabilities'),
+    path('api/get/children/', ChildrenOfParentView.as_view(), name='view-all-children-of-parent-id'),
+    path('api/get/children/courses/', ChildClassroomsView.as_view(), name='view-all-children-classrooms'),
     
 ]

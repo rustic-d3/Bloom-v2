@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from .serializers import AvailabilitySerializer, ClassSessionSerializer, UserSerializer, NoteSerializer, ClassRoomSerializer, CustomTokenObtainPairSerializer, TeacherSerializer, ParentSerializer, ChildSerializer
 from .models import Availability, ClassSession, Note, ClassRoom, Teacher, Parent, Child
-from .permissions import IsAdminRole, IsTeacherRole, IsParentRole
+from .permissions import IsAdminOrParent, IsAdminRole, IsTeacherRole, IsParentRole
 from .services import generate_meet_link, generate_session, makeCall
 
 
@@ -118,6 +118,19 @@ class TeacherObtainView(generics.RetrieveAPIView):
         user_id = self.kwargs['user_id']
         
         return self.get_queryset().get(user__id=user_id)
+    
+    
+class ParentObtainView(generics.RetrieveAPIView):
+    serializer_class = ParentSerializer
+    permission_classes = [AllowAny]
+    
+    def get_queryset(self):
+        return Parent.objects.all()
+    
+    def get_object(self):
+        user_id = self.kwargs['user_id']
+        
+        return self.get_queryset().get(user__id=user_id)
 
 class TeacherClassroomsView(generics.ListAPIView):
     serializer_class = ClassRoomSerializer
@@ -155,7 +168,7 @@ class ChildDeleteview(generics.DestroyAPIView):
 class CreateClassRoomview(generics.ListCreateAPIView):
     queryset = ClassRoom.objects.all()
     serializer_class = ClassRoomSerializer
-    permission_classes = [IsAdminRole]
+    permission_classes = [IsAdminOrParent]
 
 class AllSessionsView(generics.ListAPIView):
     queryset = ClassSession.objects.all()
@@ -264,4 +277,25 @@ class AllChildClassroomView(generics.ListAPIView):
         return ClassSession.objects.filter(
             classRoom__children__in=children
         ).order_by('date').distinct()
+class ChildClassroomsView(generics.ListAPIView):
+    serializer_class = ClassRoomSerializer
+    permission_classes = [IsParentRole]
+
+    def get_queryset(self):
+        parent = self.request.user.parent  
+        children = parent.children.all()   
+
+
+        return ClassRoom.objects.filter(
+            children__in=children
+        ).distinct()
+        
+class ChildrenOfParentView(generics.ListAPIView):
+    serializer_class = ChildSerializer;
+    permission_classes = [IsParentRole]
+    
+    def get_queryset(self):
+        
+        parent = self.request.user.parent
+        return parent.children
     
