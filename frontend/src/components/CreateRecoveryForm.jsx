@@ -85,7 +85,21 @@ function CreateRecoveryForm({ route, date, time }) {
     return days[date.getDay()];
   }
 
-  
+  async function assignChildToClass(child_id, classroom_id) {
+    const data = {
+      classroom_id: classroom_id,
+      child_id: child_id,
+    };
+    console.log(data);
+
+    try {
+      const res = await api.post("api/assign-child-to-class/", data);
+      alert(res.data.message);
+    } catch (err) {
+      console.error("Error assigning child to class:", err);
+      alert("An error occurred");
+    }
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -93,7 +107,7 @@ function CreateRecoveryForm({ route, date, time }) {
       const baseClassroom = classrooms.find(
         (classroom) => classroom.id == selectedClassroom
       );
-      const child = children.filter((child) => child.id == selectedChild);
+      // const child = children.find((child) => child.id == selectedChild);
       const start_hour = time+':00';
       const end_hour = addOneHour(time)+':00';
       const repeat_day = getDayFromDate(date);
@@ -101,7 +115,6 @@ function CreateRecoveryForm({ route, date, time }) {
         title: baseClassroom.title,
         subject: baseClassroom.subject,
         type: baseClassroom.type,
-        children: child,
         start_date: date,
         end_date: date,
         start_time: start_hour,
@@ -113,7 +126,9 @@ function CreateRecoveryForm({ route, date, time }) {
       console.log("Classroom to send", newClassroom);
 
       const res = await api.post(route, newClassroom);
+      console.log("response:", res.data);
       alert("Recovery set!");
+      assignChildToClass( selectedChild, res.data.id);
 
     } catch (err) {
       console.error("Error creating classroom:", err.response?.data || err);

@@ -197,7 +197,7 @@ class TeacherSessionsView(generics.ListAPIView):
 class ClassRoomView(generics.ListAPIView):
     queryset = ClassRoom.objects.all()
     serializer_class = ClassRoomSerializer
-    permission_classes = [IsAdminRole]
+    permission_classes = [AllowAny]
 
 class SendNotification(APIView):
     def post(self, request):
