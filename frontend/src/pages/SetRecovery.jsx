@@ -21,7 +21,7 @@ export default function SetRecovery() {
   function getDateFromWeek(weekNumber, year, dayOfWeek) {
     const firstDayOfYear = new Date(year, 0, 1);
 
-    const firstWeekStart = startOfWeek(firstDayOfYear, { weekStartsOn: 1 });
+    const firstWeekStart = startOfWeek(firstDayOfYear);
 
     const targetWeekStart = addDays(firstWeekStart, (weekNumber - 1) * 7);
 
@@ -31,11 +31,12 @@ export default function SetRecovery() {
     const year = new Date().getFullYear();
     return apiData.map((item) => {
       const dateObj = getDateFromWeek(item.week_number, year, item.day_of_week);
-      const dateStr = dateObj.toISOString().split("T")[0]; // YYYY-MM-DD
+
+      const dateStr = dateObj.toLocaleDateString("en-CA");
 
       return {
         date: dateStr,
-        times: [item.start_time.slice(0, 5)], // HH:MM
+        times: [item.start_time.slice(0, 5)],
       };
     });
   }
@@ -66,7 +67,7 @@ export default function SetRecovery() {
     setAvailableTimes(found ? found.times : []);
   };
 
-  console.log("apidata",apiData);
+  console.log("transormedData", availabilities);
 
   return (
     <>
@@ -77,7 +78,7 @@ export default function SetRecovery() {
             <Calendar
               onClickDay={handleDateChange}
               tileDisabled={({ date }) => {
-                const dateStr = date.toISOString().split("T")[0];
+                const dateStr = date.toLocaleDateString("en-CA");
                 return !availabilities.some((a) => a.date === dateStr);
               }}
             />
@@ -88,9 +89,7 @@ export default function SetRecovery() {
                   <button
                     key={time}
                     className="px-6 py-2 rounded-xl bg-white text-black hover:bg-purple-300"
-                    onClick={() =>
-                      setTime(time)
-                    }
+                    onClick={() => setTime(time)}
                   >
                     {time}
                   </button>
@@ -112,7 +111,11 @@ export default function SetRecovery() {
           </div>
         </div>
         <div className="container">
-          <CreateRecoveryForm route={"api/create/classrooms/"} date={selectedDate} time={time}></CreateRecoveryForm>
+          <CreateRecoveryForm
+            route={"api/create/classrooms/"}
+            date={selectedDate}
+            time={time}
+          ></CreateRecoveryForm>
         </div>
       </div>
     </>
