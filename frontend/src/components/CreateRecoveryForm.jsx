@@ -72,15 +72,7 @@ function CreateRecoveryForm({ route, date, time }) {
   function getDayFromDate(dateStr) {
     const date = new Date(dateStr); // parse "2025-08-15"
 
-    const days = [
-      "SU",
-      "MO",
-      "TU",
-      "WE",
-      "TH",
-      "FR",
-      "SA",
-    ];
+    const days = ["SU", "MO", "TU", "WE", "TH", "FR", "SA"];
 
     return days[date.getDay()];
   }
@@ -108,8 +100,8 @@ function CreateRecoveryForm({ route, date, time }) {
         (classroom) => classroom.id == selectedClassroom
       );
       // const child = children.find((child) => child.id == selectedChild);
-      const start_hour = time+':00';
-      const end_hour = addOneHour(time)+':00';
+      const start_hour = time + ":00";
+      const end_hour = addOneHour(time) + ":00";
       const repeat_day = getDayFromDate(date);
       const newClassroom = {
         title: baseClassroom.title,
@@ -121,15 +113,14 @@ function CreateRecoveryForm({ route, date, time }) {
         end_time: end_hour,
         teacher: baseClassroom.teacher,
         repeat_days: repeat_day,
-        session_type: 'Recovery'
+        session_type: "Recovery",
       };
       console.log("Classroom to send", newClassroom);
 
       const res = await api.post(route, newClassroom);
       console.log("response:", res.data);
       alert("Recovery set!");
-      assignChildToClass( selectedChild, res.data.id);
-
+      assignChildToClass(selectedChild, res.data.id);
     } catch (err) {
       console.error("Error creating classroom:", err.response?.data || err);
       alert("An error occurred. Check console for details.");
@@ -180,13 +171,22 @@ function CreateRecoveryForm({ route, date, time }) {
             </select>
           </div>
         </div>
-        <button
-          className=" appButton form-button"
-          type="submit"
-          onClick={handleSubmit}
-        >
-          Set recovery lesson
-        </button>
+        <div className="buttons">
+          <button
+            className="appButton form-button"
+            onClick={() => navigate("/parentDashboard")}
+          >
+            Cancel
+          </button>
+          <button
+            className=" appButton form-button"
+            type="submit"
+            onClick={handleSubmit}
+          >
+            Set recovery lesson
+          </button>
+          
+        </div>
       </form>
     </div>
   );

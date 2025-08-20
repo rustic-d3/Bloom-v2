@@ -6,7 +6,8 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { useNavigate } from "react-router-dom";
 import CreateRecoveryForm from "../components/CreateRecoveryForm";
-import "../styles/CreateRecoveryForm.css";
+import "../styles/SetRecoveryForm.css";
+import Navabr from "../components/Navbar";
 
 export default function SetRecovery() {
   const navigate = useNavigate();
@@ -71,11 +72,19 @@ export default function SetRecovery() {
 
   return (
     <>
-      <h1 className="text-2xl font-bold mb-4">Set a recovery lesson</h1>
+    <Navabr></Navabr>
       <div className="main-box">
-        <div className="container">
-          <div className="flex gap-6">
+        <h1 className="text-2xl font-bold mb-6 text-center">
+          Set a recovery lesson
+        </h1>
+
+        <div className="main-section w-full max-w-5xl flex flex-col md:flex-row gap-8 p-6">
+          {/* Calendar + Times */}
+          <div className="flex flex-col items-center gap-6 flex-1 calendar-container">
             <Calendar
+              className="bc-calendar"
+              prev2Label={null}
+              next2Label={null}
               onClickDay={handleDateChange}
               tileDisabled={({ date }) => {
                 const dateStr = date.toLocaleDateString("en-CA");
@@ -83,39 +92,34 @@ export default function SetRecovery() {
               }}
             />
 
-            <div className="flex flex-col justify-center gap-3">
-              {availableTimes.length > 0 ? (
-                availableTimes.map((time) => (
+            <div className="time-pills justify-center">
+              {availableTimes.length ? (
+                availableTimes.map((t) => (
                   <button
-                    key={time}
-                    className="px-6 py-2 rounded-xl bg-white text-black hover:bg-purple-300"
-                    onClick={() => setTime(time)}
+                    key={t}
+                    onClick={() => setTime(t)}
+                    className={`time-pill ${
+                      time === t ? "time-pill--active" : ""
+                    }`}
                   >
-                    {time}
+                    {t}
                   </button>
                 ))
               ) : (
-                <p className="italic">No availabilities</p>
+                <p className="no-times">No availabilities</p>
               )}
             </div>
+
           </div>
 
-          <div className="flex gap-4 mt-6">
-            <button
-              className="px-4 py-2 bg-gray-400 rounded-xl"
-              onClick={() => navigate("/parentDashboard")}
-            >
-              Cancel
-            </button>
-            <button className="px-4 py-2 bg-green-500 rounded-xl">Set</button>
+          {/* Form */}
+          <div className="create-recovery-form">
+            <CreateRecoveryForm
+              route={"api/create/classrooms/"}
+              date={selectedDate}
+              time={time}
+            />
           </div>
-        </div>
-        <div className="container">
-          <CreateRecoveryForm
-            route={"api/create/classrooms/"}
-            date={selectedDate}
-            time={time}
-          ></CreateRecoveryForm>
         </div>
       </div>
     </>

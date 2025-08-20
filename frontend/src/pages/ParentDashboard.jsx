@@ -66,7 +66,7 @@ export default function parentDashboard() {
   return (
     <>
       <Navbar></Navbar>
-      <div className="container main-section">
+      <div className="container .main-section-teacher-dashboard">
         <div className="hero">
             {teachers.map((teacher)=>{
                 return(<TeacherInfoContainer key={teacher.id} teacher={teacher} isTeacherAccount={isTeacherAccount} />)

@@ -49,7 +49,7 @@ function Navbar() {
               </a>
             </li>
             <li>
-              <a className="link" href="#">
+              <a className="link" href="/feedback-write">
                 Feedback
               </a>
             </li>

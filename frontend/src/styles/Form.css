@@ -27,6 +27,20 @@
   padding-bottom: 0.5em;
 }
 
+.buttons{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+button{
+  text-wrap: nowrap;
+}
+textarea{
+  width: 100%;
+  outline: none;
+}
+
 .select-input {
   font-family: var(--font-primary);
   font-weight: var(--font-400);

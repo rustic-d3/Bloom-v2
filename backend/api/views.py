@@ -193,6 +193,16 @@ class TeacherSessionsView(generics.ListAPIView):
         return ClassSession.objects.filter(
             classRoom__teacher=user.teacher,
         ).order_by('date')
+        
+class TeacherClassroomsView(generics.ListAPIView):
+    serializer_class = ClassRoomSerializer
+    permission_classes = [IsTeacherRole]
+
+    def get_queryset(self):
+        teacher = self.request.user.teacher
+        return ClassRoom.objects.filter(
+            teacher=teacher
+        ).distinct()
 
 class ClassRoomView(generics.ListAPIView):
     queryset = ClassRoom.objects.all()
@@ -277,6 +287,7 @@ class AllChildClassroomView(generics.ListAPIView):
         return ClassSession.objects.filter(
             classRoom__children__in=children
         ).order_by('date').distinct()
+        
 class ChildClassroomsView(generics.ListAPIView):
     serializer_class = ClassRoomSerializer
     permission_classes = [IsParentRole]
@@ -299,3 +310,13 @@ class ChildrenOfParentView(generics.ListAPIView):
         parent = self.request.user.parent
         return parent.children
     
+class ChildrenOfTeacherView(generics.ListAPIView):
+    serializer_class = ChildSerializer
+    permission_classes = [IsTeacherRole]
+    
+    def get_queryset(self):
+        
+        teacher = self.request.user.teacher
+        return Child.objects.filter(
+            myClass__teacher=teacher
+        ).distinct()

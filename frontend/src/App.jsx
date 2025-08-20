@@ -16,6 +16,7 @@ import ParenDashboard from "./pages/ParentDashboard"
 import AllClassroomsPage from "./pages/AllClassroomsPage";
 import SetAvailabilityPage from "./pages/SetAvailabilityPage";
 import SetRecovery from "./pages/SetRecovery";
+import FeedbackPage from "./pages/FeedbackPage";
 
 function Logout() {
   localStorage.clear();
@@ -102,6 +103,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <SetRecovery />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/feedback-write"
+            element={
+              <ProtectedRoute>
+                <FeedbackPage />
               </ProtectedRoute>
             }
           />

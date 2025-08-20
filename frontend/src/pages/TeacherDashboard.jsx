@@ -65,7 +65,7 @@ function TeacherDashboard() {
   return (
     <>
       <Navbar></Navbar>
-      <div className="container main-section">
+      <div className="container main-section-teacher-dashboard">
         <div className="hero">
           <TeacherInfoContainer teacher={teacher} isTeacherAccount={isTeacherAccount} />
         </div>
