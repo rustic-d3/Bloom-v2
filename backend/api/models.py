@@ -60,6 +60,18 @@ class Child(models.Model):
 
     def __str__(self):
         return self.name
+
+class Feedback(models.Model):
+    child = models.ForeignKey(Child, on_delete=models.CASCADE, related_name='feedbacks', null=True, blank=True)
+    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, related_name='feedbacks', null=True, blank=True)
+    value1 = models.IntegerField()
+    value2 = models.IntegerField()
+    value3 = models.IntegerField()
+    childCommitment = models.TextField(null=True, blank=True)
+    childDifficulties = models.TextField(null=True, blank=True)
+    childVictory = models.TextField(null=True, blank=True)
+    childSolution = models.TextField(null=True, blank=True)
+    studyLesson = models.CharField(max_length=100, null=True, blank=True)
     
     
 
@@ -103,6 +115,9 @@ class ClassSession(models.Model):
     date = models.DateField()
     meetUrl = models.URLField( null=True, blank=True)
     isCanceled = models.BooleanField()
+
+
+    
     
 
 

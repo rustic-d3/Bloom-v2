@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
-from .models import Availability, ClassSession, Note, CustomUser, Teacher, Child, ClassRoom, Admin, Parent
+from .models import Availability, ClassSession, Feedback, Note, CustomUser, Teacher, Child, ClassRoom, Admin, Parent
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 User = get_user_model()
@@ -64,6 +64,11 @@ class ParentSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             "phone": {"required": True, "allow_blank": False}
         }
+class FeedbackSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Feedback
+        fields = ['id', 'child', 'teacher', 'value1', 'value2', 'value3', 'childCommitment', 'childDifficulties', 'childVictory', 'childSolution', 'studyLesson']
+        
 
 class TeacherSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(source='user.email')

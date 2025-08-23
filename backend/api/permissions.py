@@ -21,3 +21,7 @@ class IsParentRole(BasePermission):
 class IsAdminOrParent(BasePermission):
     def has_permission(self, request, view):
         return request.user.role =='admin' or request.user.role == 'parent'
+    
+class IsTeacherOrParent(BasePermission):
+    def has_permission(self, request, view):
+        return request.user.role =='teacher' or request.user.role == 'parent'
