@@ -330,4 +330,13 @@ class FeedbackCreateView(generics.ListCreateAPIView):
 class FeedbackListView(generics.ListAPIView):
     queryset = Feedback.objects.all()
     serializer_class = FeedbackSerializer
-    permission_classes = [IsTeacherOrParent]
+    permission_classes = [AllowAny]
+    
+class FeedbackForChildView(generics.ListAPIView):
+    serializer_class = FeedbackSerializer
+    permission_classes = [IsParentRole]
+    
+    def get_queryset(self):
+        child_id = self.kwargs['child_id']
+        parent = self.request.user.parent
+        return Feedback.objects.filter(child__id=child_id, child__parent_name=parent)

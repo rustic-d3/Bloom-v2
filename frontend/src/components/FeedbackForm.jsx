@@ -6,7 +6,7 @@ import "../styles/Form.css";
 import Rating from "@mui/material/Rating";
 import React from "react";
 
-function FeedbackForm() {
+function FeedbackForm({ teacher }) {
   const [children, setChildren] = useState([]);
   const [classrooms, setClassRooms] = useState([]);
   const [selectedChild, setSelectedChild] = useState(null);
@@ -21,6 +21,7 @@ function FeedbackForm() {
   const [studyLesson, setStudyLesson] = useState("");
 
   const navigate = useNavigate();
+
 
   useEffect(() => {
     const get_children = async () => {
@@ -64,18 +65,20 @@ function renderBasedOnChild() {
     e.preventDefault();
     try {
       const payload = {
-        // selectedModule: selectedClassroom.subject,
-        rating1: value1,
-        rating2: value2,
-        rating3: value3,
-        commitment: childCommitment,
-        victory: childVictory,
-        difficulties: childDifficulties,
-        solutions: childSolutions,
+        child: selectedChild,
+        teacher: teacher.id,
+        selectedModule: selectedClassroom.subject,
+        value1: value1,
+        value2: value2,
+        value3: value3,
+        childCommitment: childCommitment,
+        childVictory: childVictory,
+        childDifficulties: childDifficulties,
+        childSolutions: childSolutions,
         studyLesson: studyLesson,
       };
 
-      //   const res = await api.post(route, newClassroom);
+      const res = await api.post(`api/create/feedback/`, payload);
       console.log("sending:", payload);
     } catch (err) {
       console.error(
