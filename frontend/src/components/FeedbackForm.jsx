@@ -61,13 +61,14 @@ function renderBasedOnChild() {
 }
 
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const payload = {
         child: selectedChild,
         teacher: teacher.id,
-        selectedModule: selectedClassroom.subject,
+        module: selectedClassroom,
         value1: value1,
         value2: value2,
         value3: value3,

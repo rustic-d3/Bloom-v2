@@ -29,7 +29,7 @@ function TeacherInfoContainer({ teacher, isTeacherAccount }) {
           </button>
           <button
             onClick={() => {
-              navigate("/child-feedabck");
+              navigate("/children-feedback");
             }}
           >
             Child's Feedback{" "}

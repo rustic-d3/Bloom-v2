@@ -109,7 +109,7 @@ class TeacherDeleteview(generics.DestroyAPIView):
     
 class TeacherObtainView(generics.RetrieveAPIView):
     serializer_class = TeacherSerializer
-    permission_classes = [IsTeacherRole]
+    permission_classes = [IsTeacherOrParent]
     
     def get_queryset(self):
         return Teacher.objects.all()
@@ -118,7 +118,18 @@ class TeacherObtainView(generics.RetrieveAPIView):
         user_id = self.kwargs['user_id']
         
         return self.get_queryset().get(user__id=user_id)
+
+class TeacherObtainIdView(generics.RetrieveAPIView):
+    serializer_class = TeacherSerializer
+    permission_classes = [IsTeacherOrParent]
     
+    def get_queryset(self):
+        return Teacher.objects.all()
+    
+    def get_object(self):
+        user_id = self.kwargs['user_id']
+        
+        return self.get_queryset().get(id=user_id)
     
 class ParentObtainView(generics.RetrieveAPIView):
     serializer_class = ParentSerializer
@@ -332,11 +343,22 @@ class FeedbackListView(generics.ListAPIView):
     serializer_class = FeedbackSerializer
     permission_classes = [AllowAny]
     
-class FeedbackForChildView(generics.ListAPIView):
+class FeedbackForChildView(generics.RetrieveAPIView):
     serializer_class = FeedbackSerializer
     permission_classes = [IsParentRole]
-    
-    def get_queryset(self):
+
+    def get_object(self):
         child_id = self.kwargs['child_id']
         parent = self.request.user.parent
-        return Feedback.objects.filter(child__id=child_id, child__parent_name=parent)
+        return Feedback.objects.filter(
+            child__id=child_id, 
+            child__parent_name=parent
+        ).first()
+
+class GetChildView(generics.RetrieveAPIView):
+    serializer_class = ChildSerializer
+    permission_classes = [IsParentRole]
+    
+    def get_object(self):
+        child_id = self.kwargs['pk']
+        return Child.objects.filter(id = child_id).first()

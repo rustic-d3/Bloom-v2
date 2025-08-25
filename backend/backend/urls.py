@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from api.views import AllAvailabilitiesView, AllChildClassroomView, AllClassroomsView, AllSessionsView, AllTeachersView, AssignChildToClass, AvailabilityCreateAPIView, AvailabilityView, ChildClassroomsView, ChildDeleteview, ChildUpdateview, ChildrenOfParentView, ChildrenOfTeacherView, CreateUserView, FeedbackCreateView, FeedbackListView, ParentDeleteview, ParentObtainView, ParentUpdateview, SendNotification, TeacherClassroomsView, TeacherDeleteview, TeacherObtainView, TeacherSessionsView, TeacherUpdateview, ListUserView, TeacherListView, ParentListView, CreateChildView, Childview
+from api.views import AllAvailabilitiesView, AllChildClassroomView, AllClassroomsView, AllSessionsView, AllTeachersView, AssignChildToClass, AvailabilityCreateAPIView, AvailabilityView, ChildClassroomsView, ChildDeleteview, ChildUpdateview, ChildrenOfParentView, ChildrenOfTeacherView, CreateUserView, FeedbackCreateView, FeedbackForChildView, FeedbackListView, GetChildView, ParentDeleteview, ParentObtainView, ParentUpdateview, SendNotification, TeacherClassroomsView, TeacherDeleteview, TeacherObtainIdView, TeacherObtainView, TeacherSessionsView, TeacherUpdateview, ListUserView, TeacherListView, ParentListView, CreateChildView, Childview
 from rest_framework_simplejwt.views import TokenRefreshView
 from api.views import CustomTokenObtainPairView
 
@@ -40,6 +40,7 @@ urlpatterns = [
     path('api/delete/parent/<int:pk>/', ParentDeleteview.as_view(), name='delete parent'),
     path('api/delete/child/<int:pk>/', ChildDeleteview.as_view(), name='delete child'),
     path('api/get/teacher/<int:user_id>/', TeacherObtainView.as_view(), name='get teacher'),
+    path('api/get/teacher-id/<int:user_id>/', TeacherObtainIdView.as_view(), name='get-teacher-with-id'),
     path('api/get/parent/<int:user_id>/', ParentObtainView.as_view(), name='get parent'),
     path('api/get/classrooms/', TeacherSessionsView.as_view(), name='get classrooms'),
     path('api/assign-child-to-class/', AssignChildToClass.as_view(), name='assign child to class'),
@@ -57,6 +58,7 @@ urlpatterns = [
     path('api/get/teacher/classrooms/', TeacherClassroomsView.as_view(), name='view-all-classrooms-of-teacher' ),
     path('api/get/feedbacks/', FeedbackListView.as_view(), name='get-feedback' ),
     path('api/create/feedback/', FeedbackCreateView.as_view(), name='create-feedback' ),
-    path('api/get/feedback/child/<int:child_id>', FeedbackCreateView.as_view(), name='get-feedback-for a child' ),
+    path('api/get/feedback/child/<int:child_id>', FeedbackForChildView.as_view(), name='get-feedback-for a child' ),
+    path('api/get/child/<int:pk>/', GetChildView.as_view(), name='get-child-with-id' ),
     
 ]

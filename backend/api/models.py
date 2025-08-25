@@ -63,6 +63,7 @@ class Child(models.Model):
 
 class Feedback(models.Model):
     child = models.ForeignKey(Child, on_delete=models.CASCADE, related_name='feedbacks', null=True, blank=True)
+    module = models.CharField(max_length=50, null=True, blank=True)
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, related_name='feedbacks', null=True, blank=True)
     value1 = models.IntegerField()
     value2 = models.IntegerField()

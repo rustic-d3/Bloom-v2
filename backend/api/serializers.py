@@ -67,7 +67,7 @@ class ParentSerializer(serializers.ModelSerializer):
 class FeedbackSerializer(serializers.ModelSerializer):
     class Meta:
         model = Feedback
-        fields = ['id', 'child', 'teacher', 'value1', 'value2', 'value3', 'childCommitment', 'childDifficulties', 'childVictory', 'childSolution', 'studyLesson']
+        fields = ['id', 'child', 'module', 'teacher', 'value1', 'value2', 'value3', 'childCommitment', 'childDifficulties', 'childVictory', 'childSolution', 'studyLesson']
         
 
 class TeacherSerializer(serializers.ModelSerializer):

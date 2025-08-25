@@ -17,6 +17,7 @@ import AllClassroomsPage from "./pages/AllClassroomsPage";
 import SetAvailabilityPage from "./pages/SetAvailabilityPage";
 import SetRecovery from "./pages/SetRecovery";
 import FeedbackPage from "./pages/FeedbackPage";
+import ChildrenFeedbackPage from "./pages/ChildrenFeedbackPage";
 
 function Logout() {
   localStorage.clear();
@@ -111,6 +112,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <FeedbackPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/children-feedback"
+            element={
+              <ProtectedRoute>
+                <ChildrenFeedbackPage />
               </ProtectedRoute>
             }
           />
