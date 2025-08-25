@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from api.views import AllAvailabilitiesView, AllChildClassroomView, AllClassroomsView, AllSessionsView, AllTeachersView, AssignChildToClass, AvailabilityCreateAPIView, AvailabilityView, ChildClassroomsView, ChildDeleteview, ChildUpdateview, ChildrenOfParentView, ChildrenOfTeacherView, CreateUserView, FeedbackCreateView, FeedbackForChildView, FeedbackListView, GetChildView, ParentDeleteview, ParentObtainView, ParentUpdateview, SendNotification, TeacherClassroomsView, TeacherDeleteview, TeacherObtainIdView, TeacherObtainView, TeacherSessionsView, TeacherUpdateview, ListUserView, TeacherListView, ParentListView, CreateChildView, Childview
+from api.views import AllAvailabilitiesView, AllChildClassroomView, AllClassroomsView, AllSessionsView, AllTeachersView, AssignChildToClass, AvailabilityCreateAPIView, AvailabilityView, ChildClassroomsView, ChildDeleteview, ChildUpdateview, ChildrenOfParentView, ChildrenOfTeacherView, CreateUserView, FeedbackCreateView, FeedbackDeleteview, FeedbackForChildView, FeedbackListView, GetChildView, ParentDeleteview, ParentObtainView, ParentUpdateview, SendNotification, TeacherClassroomsView, TeacherDeleteview, TeacherObtainIdView, TeacherObtainView, TeacherSessionsView, TeacherUpdateview, ListUserView, TeacherListView, ParentListView, CreateChildView, Childview
 from rest_framework_simplejwt.views import TokenRefreshView
 from api.views import CustomTokenObtainPairView
 
@@ -39,6 +39,7 @@ urlpatterns = [
     path('api/delete/teacher/<int:pk>/', TeacherDeleteview.as_view(), name='delete teacher'),
     path('api/delete/parent/<int:pk>/', ParentDeleteview.as_view(), name='delete parent'),
     path('api/delete/child/<int:pk>/', ChildDeleteview.as_view(), name='delete child'),
+    path('api/delete/feedback/<int:pk>/', FeedbackDeleteview.as_view(), name='delete-feedback'),
     path('api/get/teacher/<int:user_id>/', TeacherObtainView.as_view(), name='get teacher'),
     path('api/get/teacher-id/<int:user_id>/', TeacherObtainIdView.as_view(), name='get-teacher-with-id'),
     path('api/get/parent/<int:user_id>/', ParentObtainView.as_view(), name='get parent'),

@@ -175,6 +175,12 @@ class ChildDeleteview(generics.DestroyAPIView):
     queryset = Child.objects.all()
     serializer_class = ChildSerializer
     permission_classes = [IsAdminRole]
+    
+    
+class FeedbackDeleteview(generics.DestroyAPIView):
+    queryset = Feedback.objects.all()
+    serializer_class = FeedbackSerializer
+    permission_classes = [AllowAny]
 
 class CreateClassRoomview(generics.ListCreateAPIView):
     queryset = ClassRoom.objects.all()
@@ -337,6 +343,25 @@ class FeedbackCreateView(generics.ListCreateAPIView):
     queryset = Feedback.objects.all()
     serializer_class = FeedbackSerializer
     permission_classes = [IsTeacherRole]
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        validated = serializer.validated_data
+
+        # Only match on child.id
+        feedback, created = Feedback.objects.update_or_create(
+            child=validated.get("child"),
+            defaults=validated
+        )
+
+        serializer = self.get_serializer(feedback)
+        return Response(
+            serializer.data,
+            status=status.HTTP_201_CREATED if created else status.HTTP_200_OK
+        )
+
 
 class FeedbackListView(generics.ListAPIView):
     queryset = Feedback.objects.all()

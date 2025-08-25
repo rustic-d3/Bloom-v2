@@ -81,6 +81,7 @@ function renderBasedOnChild() {
 
       const res = await api.post(`api/create/feedback/`, payload);
       console.log("sending:", payload);
+      navigate("/teacherDashboard");
     } catch (err) {
       console.error(
         "Error sending feebback classroom:",
