@@ -70,7 +70,7 @@ function Navbar() {
             </li>
             <li>
               <a className="link" href="#">
-                Kid's Feedback
+                Children's Feedback
               </a>
             </li>
           </ul>
