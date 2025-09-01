@@ -1,6 +1,5 @@
 @import './variables.css';
 
-
 .heading {
   display: flex;
   justify-content: space-between;
@@ -8,9 +7,7 @@
   flex-wrap: wrap;
   gap: 1rem;
   padding: 12px;
-
 }
-
 
 .tabs ul {
   display: flex;
@@ -20,7 +17,7 @@
 }
 
 .tabs ul li {
-  background-color: var(--clr-primary); 
+  background-color: var(--clr-primary);
   padding: 0.75rem 1.25rem;
   color: white;
   font-weight: 600;
@@ -39,18 +36,14 @@
   white-space: nowrap;
 }
 
-
-
-
 .operations {
   display: flex;
   align-items: center;
   gap: 0.75rem;
 }
 
-
 .inputField {
-    display: flex;
+  display: flex;
   padding: 0.5rem 1rem;
   border-radius: 999px;
   border: 1px solid #ccc;
@@ -58,14 +51,13 @@
   min-width: 350px;
   font-size: 1rem;
 }
-.inputField input{
-    width: 100%;
-    height: 100%;
-    border: none;
-    outline: none;
 
+.inputField input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
 }
-
 
 .search-button {
   background-color: var(--clr-primary);
@@ -82,6 +74,25 @@
   background-color: #46206d;
 }
 
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-container table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+}
+
+.table-container th,
+.table-container td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  white-space: nowrap;
+}
 
 @media (max-width: 768px) {
   .heading {
@@ -89,36 +100,41 @@
     align-items: stretch;
     justify-content: center;
   }
-  .tabs{
+  .tabs {
     width: 100%;
   }
-  .tabs ul{
+  .tabs ul {
     justify-content: center;
     align-items: center;
     width: 100%;
   }
-  .tabs ul li{
+  .tabs ul li {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
   }
-
   .operations {
     width: 100%;
     justify-content: flex-start;
     flex-wrap: wrap;
   }
-
-  .input-field input {
+  .inputField input {
     flex: 1;
     width: 100%;
   }
-  .operations{
+  .operations {
     justify-content: center;
   }
-
   .search-button {
     width: 100%;
+  }
+  .table-container table {
+    min-width: 100%;
+  }
+  .table-container th,
+  .table-container td {
+    font-size: 0.9rem;
+    padding: 0.5rem;
   }
 }

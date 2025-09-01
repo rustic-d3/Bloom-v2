@@ -17,7 +17,6 @@ function Form({ route, method }) {
   const [role, setRole] = useState("teacher");
   const [Loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  
 
   function renderFields(role) {
     switch (role) {
@@ -100,18 +99,18 @@ function Form({ route, method }) {
         res = await api.post(route, { username, password });
         localStorage.setItem(ACCESS_TOKEN, res.data.access);
         localStorage.setItem(REFRESH_TOKEN, res.data.refresh);
-        const token = localStorage.getItem(ACCESS_TOKEN)
-        const role = jwtDecode(token).role
-        switch(role){
+        const token = localStorage.getItem(ACCESS_TOKEN);
+        const role = jwtDecode(token).role;
+        switch (role) {
           case "admin":
-            navigate('/');
+            navigate("/");
             break;
           case "teacher":
-            navigate("/teacherDashboard")
-          break;
+            navigate("/teacherDashboard");
+            break;
           case "parent":
-            navigate("/parentDashboard")
-          break;
+            navigate("/parentDashboard");
+            break;
         }
       } else {
         if (role === "parent") {
@@ -241,6 +240,15 @@ function Form({ route, method }) {
         <button className=" appButton form-button" type="submit">
           {method_name}
         </button>
+        {method_name === "Register" && (
+          <button
+            type="button"
+            className=" appButton form-button"
+            onClick={() => navigate("/")}
+          >
+            Cancel
+          </button>
+        )}
       </form>
     </div>
   );

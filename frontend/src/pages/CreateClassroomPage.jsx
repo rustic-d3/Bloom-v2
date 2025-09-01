@@ -1,12 +1,13 @@
-import ClassRoomForm from "../components/ChildrenForm";
+import ClassRoomForm from "../components/ClassRoomForm";
 import "../styles/AddChildPage.css";
 import Navbar from "../components/Navbar";
+import '../styles/CreateClassroomPage.css'
 
 function AddChildPage() {
   return (
     <>
     <Navbar></Navbar>
-      <div className="add-classroom-body">
+      <div className="form-layout-container">
         <ClassRoomForm route={"api/create/classrooms/"}></ClassRoomForm>
       </div>
     </>

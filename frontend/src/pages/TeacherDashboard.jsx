@@ -62,6 +62,16 @@ function TeacherDashboard() {
     console.log( "classrooms:", classRooms)
   }, [userId]);
 
+  function checkforDate(dateString) {
+  const today = new Date();
+  const inputDate = new Date(dateString);
+
+  today.setHours(0, 0, 0, 0);
+  inputDate.setHours(0, 0, 0, 0);
+
+  return inputDate >= today; 
+}
+
   return (
     <>
       <Navbar></Navbar>
@@ -71,10 +81,11 @@ function TeacherDashboard() {
         </div>
 
         <div className="classRooms">
-          {classRooms.map((session)=>{
-            return (
-              <ClassroomCard key={session.id} session={session} />
-            )
+          {classRooms.map((session)=>{  
+            if (checkforDate(session.date)){
+              return(<ClassroomCard key={session.id} session={session} />) 
+            }
+                
           }
         )}
           

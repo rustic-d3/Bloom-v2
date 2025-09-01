@@ -18,6 +18,7 @@ import SetAvailabilityPage from "./pages/SetAvailabilityPage";
 import SetRecovery from "./pages/SetRecovery";
 import FeedbackPage from "./pages/FeedbackPage";
 import ChildrenFeedbackPage from "./pages/ChildrenFeedbackPage";
+import CreateClassroomPage from "./pages/CreateClassroomPage";
 
 function Logout() {
   localStorage.clear();
@@ -71,7 +72,7 @@ function App() {
             path="/createClassroom"
             element={
               <AdminProtected>
-                <ClassRoomForm route={"api/create/classrooms/"} />
+                <CreateClassroomPage />
               </AdminProtected>
             }
           />

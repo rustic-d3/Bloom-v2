@@ -7,6 +7,9 @@ import { useEffect } from "react";
 import api from "../api";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 import { jwtDecode } from "jwt-decode";
+import Navbar from "../components/Navbar";
+import '../styles/RegisterPage.css';
+
 export default function FeedbackPage() {
   const [userId, setUserId] = useState(null);
   const [teacher, setTeacher] = useState([]);
@@ -41,10 +44,14 @@ export default function FeedbackPage() {
     getTeacher();
     console.log("userId in feedback form:", userId);
   }, [userId]);
-    console.log("teacher in feedback form:", teacher);
+  console.log("teacher in feedback form:", teacher);
   return (
     <>
-      <FeedbackForm teacher = {teacher}></FeedbackForm>
+      <Navbar></Navbar>
+      <div className="form-layout-container">
+        <FeedbackForm teacher={teacher}></FeedbackForm>
+      </div>
+      
     </>
   );
 }

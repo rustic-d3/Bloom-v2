@@ -3,44 +3,36 @@
   flex-direction: column;
   align-items: center;
   padding: 1rem;
-  font-family: Arial, sans-serif;
-  width: 80%;
-}
-
-.title-main {
-  color: white;
-  background: linear-gradient(to right, #b45bdb, #8b4bc1);
   width: 100%;
-  text-align: center;
-  padding: 1rem 0;
-  font-size: 1.8rem;
-  font-weight: var(--font-700);
+  box-sizing: border-box;
 }
 
 .class-card {
   background: var(--clr-light);
   border-radius: 10px;
   overflow: hidden;
-  max-width: 350px;
+  max-width: 400px;
   width: 100%;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
   text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .class-header {
   background: #5d2e8c;
   color: white;
   padding: 1rem;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: var(--font-700);
 }
 
 .class-info {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  gap: 1rem;
   margin: 1rem 0;
-  font-weight: var(--font-700);
-  font-size: 1rem;
+  flex-wrap: wrap;
 }
 
 .circle {
@@ -52,16 +44,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1rem;
+  font-size: 0.85rem;
   text-align: center;
   padding: 5px;
+  flex-shrink: 0;
 }
 
 .student-lists {
   display: flex;
   justify-content: center;
-  gap: 4rem; /* space between the two columns */
+  gap: 2rem;
   margin-bottom: 1rem;
+  flex-wrap: wrap;
 }
 
 .student-lists ul {
@@ -72,11 +66,11 @@
 
 .student-lists li {
   display: flex;
-  justify-content: space-between; /* push text left, button right */
+  justify-content: space-between;
   align-items: center;
-  margin: 0.2rem 0;
+  margin: 0.3rem 0;
   font-weight: var(--font-700);
-  width: 120px; /* fixed width for consistent alignment */
+  min-width: 120px;
 }
 
 .alarmButton {
@@ -94,6 +88,8 @@
   justify-content: space-around;
   margin: 0.5rem 0;
   font-weight: bold;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .countdown span {
@@ -112,6 +108,7 @@
   justify-content: center;
   gap: 1rem;
   padding: 1rem;
+  flex-wrap: wrap;
 }
 
 .enter-btn,
@@ -119,7 +116,7 @@
   background: #5d2e8c;
   color: white;
   border: none;
-  padding: 0.5rem 1rem;
+  padding: 0.6rem 1.2rem;
   border-radius: 8px;
   cursor: pointer;
   font-size: 1rem;
@@ -134,24 +131,58 @@
   opacity: 0.85;
 }
 
-.alarmButton{
-    background: none;
-    border: none;
-    outline: none;
-}
+@media (max-width: 600px) {
+  .class-card {
+    max-width: 100%;
+    border-radius: 8px;
+  }
 
-@media (max-width: 500px) {
+  .class-header {
+    font-size: 1rem;
+    padding: 0.8rem;
+  }
+
   .class-info {
-    flex-direction: column;
-    gap: 0.5rem;
+    justify-content: center;
+    gap: 0.6rem;
+  }
+
+  .circle {
+    width: 55px;
+    height: 55px;
+    font-size: 0.7rem;
+    padding: 3px;
   }
 
   .student-lists {
     flex-direction: column;
     align-items: center;
+    gap: 0.5rem;
+  }
+
+  .student-lists li {
+    min-width: auto;
+    font-size: 0.9rem;
+  }
+
+  .countdown {
+    gap: 0.6rem;
+    font-size: 0.85rem;
+  }
+
+  .countdown small {
+    font-size: 0.65rem;
   }
 
   .buttons {
     flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .enter-btn,
+  .replace-btn {
+    width: 100%;
+    font-size: 0.9rem;
+    padding: 0.6rem;
   }
 }

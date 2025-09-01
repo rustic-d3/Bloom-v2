@@ -2,66 +2,96 @@
 
 .container {
   display: flex;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
   gap: 1rem;
   padding: 1rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .main-section-teacher-dashboard {
   padding-top: 2rem;
   flex: 1 1 100%;
   margin: 0;
+  width: 100%;
 }
 
 .hero {
   display: flex;
-  align-items: center;
-  gap: 5%;
-
-  flex-direction: column;
-  flex: 1 1 400px; 
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2rem;
+  flex: 1 1 400px;
+  width: 100%;
+  flex-wrap: wrap;
 }
 
 .classRooms {
-  flex: 1 1 400px; 
+  flex: 1 1 400px;
   min-height: 300px;
   background: var(--gradient-containers-2);
   border-radius: 8px;
-  justify-content: center;
-  align-items: center;
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.classRoom{
-    width: 50%;
-    height: 15rem;
-    background-color: var(--clr-secondary);
-    margin: 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: var(--clr-light);
-    font-weight: var(--font-700);
+.classRoom {
+  flex: 1 1 calc(33.33% - 2rem);
+  max-width: 350px;
+  min-width: 250px;
+  background-color: var(--clr-secondary);
+  margin: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: var(--clr-light);
+  font-weight: var(--font-700);
+  border-radius: 8px;
+  box-sizing: border-box;
 }
 
 .info-container {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+}
+
+@media (max-width: 1200px) {
+  .classRoom {
+    flex: 1 1 calc(50% - 1rem);
+  }
 }
 
 @media (max-width: 768px) {
   .container {
-    flex-direction: column; 
+    flex-direction: column;
+    padding: 0.5rem;
   }
 
   .hero {
-    margin-left: 0; 
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
   }
 
   .classRooms {
-    width: 100%;
+    padding: 0.5rem;
+    height: auto;
+  }
+
+  .classRoom {
+    flex: 1 1 auto;   /* don't force width calc */
+    width: 100%;      /* fill parent width */
+    margin: 0.25rem 0; /* small vertical spacing only */
+    min-width: 0;
+    max-width: 100%;
   }
 }

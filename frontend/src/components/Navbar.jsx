@@ -99,7 +99,6 @@ function Navbar() {
         {renderNavigation(role)}
 
         <div className="menu-icons">
-          <img className="icon" src="/images/mail.png" alt="mail" />
           <a href="/logout" className="logout-btn link">
             Log out
           </a>
@@ -108,7 +107,6 @@ function Navbar() {
       </div>
 
       <div className="end-part">
-        <img className="icon" src="/images/mail.png" alt="mail" />
         <a className="link" href="/logout">
           Log out
         </a>

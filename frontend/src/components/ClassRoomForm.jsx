@@ -291,6 +291,9 @@ function ClassRoomForm({ route }) {
         <button className=" appButton form-button" type="submit">
           Create classroom
         </button>
+        <button className=" appButton form-button" type="button" onClick={() => navigate(-1)}>
+          Cancel
+        </button>
       </form>
     </div>
   );
