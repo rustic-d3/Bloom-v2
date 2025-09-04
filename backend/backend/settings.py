@@ -76,6 +76,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'backend.urls'
+STATIC_ROOT = BASE_DIR / 'static'
 
 TEMPLATES = [
     {
