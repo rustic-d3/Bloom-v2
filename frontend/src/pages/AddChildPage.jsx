@@ -6,7 +6,7 @@ function AddChildPage(){
     return(
         <>
         <Navbar></Navbar>
-        <div className="add-child-body">
+        <div className="form-layout-container">
             <ChildrenForm route ={'/api/user/register/child/'}></ChildrenForm>
         </div>
         </>

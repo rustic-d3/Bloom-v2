@@ -116,6 +116,13 @@ function ChildrenForm({ route }) {
         <button className=" appButton form-button" type="submit">
           Add child
         </button>
+        <button
+            type="button"
+            className=" appButton form-button"
+            onClick={() => navigate("/")}
+          >
+            Cancel
+          </button>
       </form>
     </div>
   );
