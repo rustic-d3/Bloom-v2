@@ -29,9 +29,9 @@ function Navbar() {
               </a>
             </li>
             <li>
-              <a className="link" href="/createClassroom">
-                Create Classroom
-              </a>
+              <Link className="link" to="/createClassroom">
+              Create Classroom
+              </Link>
             </li>
           </ul>
         );
