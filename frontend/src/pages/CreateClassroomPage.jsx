@@ -8,7 +8,7 @@ function AddChildPage() {
     <>
     <Navbar></Navbar>
       <div className="form-layout-container">
-        <ClassRoomForm route={"api/create/classrooms/"}></ClassRoomForm>
+        <ClassRoomForm route={"/api/create/classrooms/"}></ClassRoomForm>
       </div>
     </>
   );

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { ACCESS_TOKEN } from './constants';
-const BASE_URL = import.meta.env.MODE == 'development' ? import.meta.env.VITE_API_URL_LOCAL : import.meta.env.VITE_API_URL_DEPLOY
+export const BASE_URL = import.meta.env.MODE == 'development' ? import.meta.env.VITE_API_URL_LOCAL : import.meta.env.VITE_API_URL_DEPLOY
 
 const api = axios.create({
     baseURL: BASE_URL 
