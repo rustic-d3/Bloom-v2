@@ -69,7 +69,7 @@ function Navbar() {
               </a>
             </li>
             <li>
-              <a className="link" href="#">
+              <a className="link" href="/children-feedback">
                 Children's Feedback
               </a>
             </li>
