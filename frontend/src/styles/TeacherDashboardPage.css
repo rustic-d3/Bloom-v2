@@ -85,12 +85,13 @@
   .classRooms {
     padding: 0.5rem;
     height: auto;
+    background: none;
   }
 
   .classRoom {
-    flex: 1 1 auto;   /* don't force width calc */
-    width: 100%;      /* fill parent width */
-    margin: 0.25rem 0; /* small vertical spacing only */
+    flex: 1 1 auto;   
+    width: 100%;     
+    margin: 0.25rem 0; 
     min-width: 0;
     max-width: 100%;
   }
