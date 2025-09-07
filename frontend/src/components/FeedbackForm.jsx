@@ -252,7 +252,7 @@ function renderBasedOnChild() {
             type="submit"
             onClick={handleSubmit}
           >
-            Submit Feedback
+            Submit
           </button>
         </div>
       </form>

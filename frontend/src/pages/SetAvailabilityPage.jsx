@@ -62,7 +62,7 @@ export default function SetAvailabilityPage() {
 
                 <div className="availability-content">
                     <div className="availability-card">
-                        <TeacherInfoContainer teacher={teacher} isTeacherAccount={false} />
+                        <TeacherInfoContainer teacher={teacher} isTeacherAccount={true} />
                     </div>
                     <div className="availability-schedule">
                         <Schedule />
