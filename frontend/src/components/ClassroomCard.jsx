@@ -121,7 +121,6 @@ export default function ClassroomCard({ session }) {
           >
             Enter
           </button>
-          <button className="replace-btn">Replacement</button>
         </div>
       </div>
     </div>

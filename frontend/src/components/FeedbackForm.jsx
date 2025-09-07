@@ -242,13 +242,13 @@ function renderBasedOnChild() {
         </div>
         <div className="buttons">
           <button
-            className="appButton form-button"
+            className="appButton form-button action-button"
             onClick={() => navigate("/teacherDashboard")}
           >
             Cancel
           </button>
           <button
-            className=" appButton form-button"
+            className=" appButton form-button action-button"
             type="submit"
             onClick={handleSubmit}
           >

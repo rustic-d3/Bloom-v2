@@ -40,6 +40,9 @@ textarea{
   width: 100%;
   outline: none;
 }
+button{
+  text-align: center;
+}
 
 .select-input {
   font-family: var(--font-primary);
