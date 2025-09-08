@@ -112,7 +112,6 @@ export default function SetRecovery() {
 
           </div>
 
-          {/* Form */}
           <div className="create-recovery-form">
             <CreateRecoveryForm
               route={"api/create/classrooms/"}
